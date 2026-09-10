@@ -13,8 +13,8 @@ class ProntuarioController extends Controller
      */
     public function index()
     {
-        $prontuario = Prontuario::with('paciente')->get();
-        return view('prontuarios.index', compact('prontuario'));
+        $prontuarios = Prontuario::with('paciente')->get();
+        return view('prontuarios.index', compact('prontuarios'));
     }
 
     /**
@@ -22,8 +22,8 @@ class ProntuarioController extends Controller
      */
     public function create()
     {
-        $prontuario = Prontuario::all();
-        return view('prontuarios.create', compact('prontuario'));
+        $pacientes = Paciente::all();
+        return view('prontuarios.create', compact('pacientes'));
     }
 
     /**
@@ -44,8 +44,8 @@ class ProntuarioController extends Controller
      */
     public function show(int $id)
     {
-        $prontuario = Prontuario::findOrFail($id);
-        return view('prontuarios.show', compact('prontuario'));
+        $prontuarios = Prontuario::findOrFail($id);
+        return view('prontuarios.show', compact('prontuarios'));
     }
 
     /**
@@ -61,16 +61,26 @@ class ProntuarioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Prontuario $prontuario)
+    public function update(Request $request, int $id)
     {
-        //
+        $prontuarios = Prontuario::findOrFail($id);
+        if($prontuarios->update($request->all())){
+            return redirect()->route('prontuarios.index')->with('mensagem', 'Prontuario alterado com Sucesso!');
+        } else {
+            return redirect()->route('prontuarios.index')->with('mensagem', 'Erro ao alterar o Prontuario!');
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Prontuario $prontuario)
+    public function destroy(int $id)
     {
-        //
+        $prontuarios = Prontuario::findOrFail($id);
+        if($prontuarios->delete()) {
+            return redirect()->route('prontuarios.index')->with('mensagem', 'Prontuario excluído!');
+        } else {
+            return redirect()->route('prontuarios.index')->with('mensagem', 'Erro ao excluir o Prontuario!');
+        }
     }
 }
