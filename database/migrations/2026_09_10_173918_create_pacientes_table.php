@@ -14,8 +14,8 @@ return new class extends Migration
         if (! Schema::hasTable('pacientes')) {
             Schema::create('pacientes', function (Blueprint $table) {
                 $table->id();
-                $table->string('nome');
-                $table->string('cpf')->unique();
+                $table->string('nome', 25);
+                $table->string('cpf', 11)->unique();
                 $table->string('telefone');
                 $table->string('email')->unique();
                 $table->timestamps();
