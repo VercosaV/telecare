@@ -17,6 +17,7 @@ return new class extends Migration
                 $table->string('telefone')->nullable();
                 $table->string('email')->unique();
                 $table->foreignId('especialidade_id')
+                    ->nullable()
                     ->constrained('especialidades') 
                     ->onDelete('cascade');
 

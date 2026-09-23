@@ -30,6 +30,7 @@
                 <label for="email" class="form-label">Informe o Email do Paciente</label>
                 <input type="email" id="email" name="email" class="form-control" required="">
             </div>
+            <a href="/pacientes" class="btn btn-secondary">Voltar</a>
             <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"

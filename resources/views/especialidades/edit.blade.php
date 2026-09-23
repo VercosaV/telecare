@@ -18,6 +18,7 @@
                 <label for="nome" class="form-label">Informe o nome da Especialidade</label>
                 <input type="text" id="nome" name="nome" class="form-control" required="" value="{{ $especialidades->nome }}">
             </div>
+            <a href="/especialidades" class="btn btn-secondary">Voltar</a>
             <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"

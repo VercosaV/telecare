@@ -35,7 +35,7 @@
 
                 <input type="hidden" name="paciente_id" value="{{ $pacientes->id }}">
             </div>
-
+            <a href="/prontuarios" class="btn btn-secondary">Voltar</a>
             <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
 
