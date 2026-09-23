@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Especialidade extends Model
 {
     protected $table = 'especialidades';
+
+    public $incrementing = true;
     
-    protected $fillable = [
-        'nome'
-    ];
+    protected $fillable = ['nome']; 
 }

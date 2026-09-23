@@ -22,6 +22,7 @@
                 <th>Tipo do Prof</th>
                 <th>Especialidade</th>
                 <th>CRM</th>
+                <th>CPF</th>
                 <th>Telefone</th>
                 <th>Email</th>
                 <th>Ações</th>
@@ -35,6 +36,7 @@
                     <td>{{ $pf->tipo_profissional === 'medico' ? 'Médico' : 'Secretária'}}</td>
                     <td>{{ $pf->especialidade ? $pf->especialidade->nome : 'N/A' }}</td>
                     <td>{{ $pf->crm ? $pf->crm : 'N/A' }}</td>
+                    <td>{{ $pf->cpf }}</td>
                     <td>{{ $pf->telefone }}</td>
                     <td>{{ $pf->email }}</td>
                     <td class="d-flex gap-2">

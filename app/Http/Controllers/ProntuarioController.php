@@ -44,8 +44,8 @@ class ProntuarioController extends Controller
      */
     public function show(int $id)
     {
-        $pacientes = Paciente::findOrFail($id);
         $prontuarios = Prontuario::findOrFail($id);
+        $pacientes = $prontuarios->paciente;
         return view('prontuarios.show', compact('prontuarios', 'pacientes'));
     }
 
@@ -54,8 +54,8 @@ class ProntuarioController extends Controller
      */
     public function edit(int $id)
     {
-        $pacientes = Paciente::all();
         $prontuarios = Prontuario::findOrFail($id);
+        $pacientes = $prontuarios->paciente;
         return view('prontuarios.edit', compact('prontuarios', 'pacientes'));
     }
 

@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (! Schema::hasTable('pacientes')) {
-            Schema::create('pacientes', function (Blueprint $table) {
+        if (! Schema::hasTable('especialidades')) {
+            Schema::create('especialidades', function (Blueprint $table) {
                 $table->id();
-                $table->string('nome', 25);
-                $table->string('cpf', 11)->unique();
-                $table->string('telefone');
-                $table->string('email')->unique();
+                $table->string('nome');
                 $table->timestamps();
-
             });
         }
     }
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pacientes');
+        Schema::dropIfExists('especialidades');
     }
 };

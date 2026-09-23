@@ -13,10 +13,14 @@ CREATE TABLE profissionais (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
-    crm VARCHAR(50) NOT NULL UNIQUE,
-    especialidade VARCHAR(255) NOT NULL,
+    crm VARCHAR(50) UNIQUE,
+    cpf VARCHAR(20) NOT NULL UNIQUE,
+    telefone VARCHAR(20),
+    tipo_profissional VARCHAR(255) NOT NULL,
+    especialidade_id BIGINT UNSIGNED,
     created_at TIMESTAMP NULL DEFAULT NULL,
-    updated_at TIMESTAMP NULL DEFAULT NULL
+    updated_at TIMESTAMP NULL DEFAULT NULL,
+    FOREIGN KEY (especialidade_id) REFERENCES especialidades(id) ON DELETE CASCADE
 );
 
 -- 3. Tabela Pivô (N:M): Profissionais <-> Unidades de Atendimento
@@ -43,8 +47,8 @@ CREATE TABLE secretarias (
 -- 5. Pacientes
 CREATE TABLE pacientes (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL,
-    cpf VARCHAR(20) NOT NULL UNIQUE,
+    nome VARCHAR(25) NOT NULL,
+    cpf VARCHAR(11) NOT NULL UNIQUE,
     telefone VARCHAR(20),
     email VARCHAR(255) UNIQUE,
     created_at TIMESTAMP NULL DEFAULT NULL,
@@ -54,8 +58,8 @@ CREATE TABLE pacientes (
 -- 6. Prontuários (1:1 com Paciente)
 CREATE TABLE prontuarios (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    paciente_id BIGINT UNSIGNED NOT NULL UNIQUE, 
-    data_registro DATE NOT NULL,
+    paciente_id BIGINT UNSIGNED NOT NULL, 
+    data_registro DATETIME NOT NULL,
     diagnostico TEXT,
     created_at TIMESTAMP NULL DEFAULT NULL,
     updated_at TIMESTAMP NULL DEFAULT NULL,
@@ -92,4 +96,11 @@ CREATE TABLE pagamentos (
     created_at TIMESTAMP NULL DEFAULT NULL,
     updated_at TIMESTAMP NULL DEFAULT NULL,
     FOREIGN KEY (consulta_id) REFERENCES consultas(id) ON DELETE CASCADE
+);
+
+CREATE TABLE especialidades (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP NULL DEFAULT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL
 );
