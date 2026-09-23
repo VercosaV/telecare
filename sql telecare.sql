@@ -1,3 +1,10 @@
+CREATE TABLE especialidades (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP NULL DEFAULT NULL,
+    updated_at TIMESTAMP NULL DEFAULT NULL
+);
+
 -- 1. Unidades de Atendimento
 CREATE TABLE unidades_atendimento (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -98,9 +105,3 @@ CREATE TABLE pagamentos (
     FOREIGN KEY (consulta_id) REFERENCES consultas(id) ON DELETE CASCADE
 );
 
-CREATE TABLE especialidades (
-    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP NULL DEFAULT NULL,
-    updated_at TIMESTAMP NULL DEFAULT NULL
-);
