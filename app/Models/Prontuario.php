@@ -17,7 +17,7 @@ class Prontuario extends Model
     ];
 
     protected $casts = [
-        'data_registro' => 'datetime',
+        'data_registro' => 'date',
 
     ];
 

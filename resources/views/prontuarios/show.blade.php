@@ -10,20 +10,31 @@
 
 <body>
     <div class="container py-3">
+
         <h1>Dados do Prontuário</h1>
+
         <div class="mb-3">
-            <p><strong>Data de Registro:</strong> {{ $prontuario->data_registro }}</p>
+            <label for="data_registro" class="form-label">Data do Registro</label>
+            <input type="text" id="data_registro" name="data_registro" class="form-control" disabled
+                value="{{ $prontuarios->data_registro->format('d/m/Y') }}">
         </div>
+
         <div class="mb-3">
-            <p><strong>Diagnóstico:</strong> {{ $prontuario->diagnostico }}</p>
+            <label for="diagnostico" class="form-label">Diagnóstico</label>
+            <input type="text" id="diagnostico" name="diagnostico" class="form-control" disabled
+                value="{{ $prontuarios->diagnostico }}">
         </div>
+
         <div class="mb-3">
-            <p><strong>Paciente:</strong> {{ $prontuario->paciente->nome }}</p>
+            <label for="nome" class="form-label">Paciente</label>
+            <input type="text" id="nome" name="nome" class="form-control" disabled
+                value="{{ $pacientes->nome }}">
         </div>
-        <div class="alert alert-danger" >
+
+        <div class="alert alert-danger">
             <p class="text-danger">Deseja Excluir ?</p>
             <a href="/prontuarios" class="btn btn-secondary">Voltar</a>
-            <form method="post" action="/prontuarios/{{ $prontuario->id }}">
+            <form method="post" action="/prontuarios/{{ $prontuarios->id }}">
                 @CSRF
                 @method('delete')
                 <button class="btn btn-danger" style="margin-top:4px;" type="submit">Excluir</button>
@@ -31,6 +42,7 @@
         </div>
 
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous">
     </script>

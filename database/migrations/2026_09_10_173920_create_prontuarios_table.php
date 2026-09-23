@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('prontuarios', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('paciente_id')->constrained()->onDelete('cascade');
-            $table->dateTime('data_registro');
-            $table->text('diagnostico');
-            $table->timestamps();
-        });
+        if (! Schema::hasTable('prontuarios')) {
+            Schema::create('prontuarios', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('paciente_id')->constrained()->onDelete('cascade');
+                $table->dateTime('data_registro');
+                $table->text('diagnostico');
+                $table->timestamps();
+            });
+        }
     }
 
     /**

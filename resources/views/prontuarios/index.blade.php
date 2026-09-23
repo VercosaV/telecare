@@ -27,7 +27,7 @@
               @foreach($prontuarios as $p)
                 <tr>
                     <td>{{ $p->id }}</td>
-                    <td>{{ $p->data_registro }}</td>
+                    <td>{{ $p->data_registro->format('d/m/Y') }}</td>
                     <td>{{ $p->diagnostico }}</td>
                     <td>{{ $p->paciente->nome }}</td>
 

@@ -11,7 +11,7 @@
 <body>
     <div class="container py-3">
         <h1>Editar Prontuário</h1>
-        <form method="post" action='/prontuarios/{{ $prontuario->id }}'>
+        <form method="post" action='/prontuarios/{{ $prontuarios->id }}'>
             @CSRF
             @method('PUT')
             <div class="mb-3">
