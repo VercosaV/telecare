@@ -36,7 +36,7 @@
             <a href="/prontuarios" class="btn btn-secondary">Voltar</a>
             <form method="post" action="/prontuarios/{{ $prontuarios->id }}">
                 @CSRF
-                @method('delete')
+                @method('DELETE')
                 <button class="btn btn-danger" style="margin-top:4px;" type="submit">Excluir</button>
             </form>
         </div>

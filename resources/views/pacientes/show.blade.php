@@ -35,14 +35,14 @@
             <input type="email" id="email" name="email" class="form-control" disabled
                 value="{{ $pacientes->email }}">
         </div>
+
         <div class="alert alert-danger">
+            <p class="text-danger">Deseja excluir ?</p>
             <a href="/pacientes" class="btn btn-secondary">Voltar</a>
-            <p>Deseja excluir esse registro ?</p>
             <form method="post" action='/pacientes/{{ $pacientes->id }}'>
                 @CSRF
                 @method('DELETE')
-
-                <button type="submit" class="btn btn-danger">Excluir</button>
+                <button type="submit" class="btn btn-danger" style="margin-top:4px;">Excluir</button>
             </form>
         </div>
 
