@@ -14,6 +14,7 @@ return new class extends Migration
                 $table->string('tipo_profissional');
                 $table->string('nome');
                 $table->string('crm')->nullable();
+                $table->string('cpf')->unique();
                 $table->string('telefone')->nullable();
                 $table->string('email')->unique();
                 $table->foreignId('especialidade_id')

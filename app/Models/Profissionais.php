@@ -10,7 +10,7 @@ class Profissionais extends Model
     public $incrementing = true ; 
     protected $fillable = 
     [
-         'tipo_profissional', 'nome', 'crm', 'telefone', 'email', 'especialidade_id'
+         'tipo_profissional', 'nome', 'crm', 'telefone', 'email', 'especialidade_id', 'cpf'
     ];
     
     public function especialidade()

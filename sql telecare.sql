@@ -14,6 +14,9 @@ CREATE TABLE profissionais (
     nome VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     crm VARCHAR(50) NOT NULL UNIQUE,
+    cpf VARCHAR(20) NOT NULL UNIQUE,
+    telefone VARCHAR(20),
+    tipo_profissional ENUM('medico', 'secretaria') NOT NULL,
     especialidade VARCHAR(255) NOT NULL,
     created_at TIMESTAMP NULL DEFAULT NULL,
     updated_at TIMESTAMP NULL DEFAULT NULL

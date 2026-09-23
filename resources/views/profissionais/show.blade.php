@@ -38,6 +38,12 @@
         </div>
 
         <div class="mb-3">
+            <label for="cpf" class="form-label">CPF</label>
+            <input type="text" id="cpf" class="form-control" disabled
+                value="{{ $profissionais->cpf ? $profissionais->cpf : 'N/A' }}">
+        </div>
+
+        <div class="mb-3">
             <label for="telefone" class="form-label">Telefone</label>
             <input type="text" id="telefone" class="form-control" disabled
                 value="{{ $profissionais->telefone }}">
