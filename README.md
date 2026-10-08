@@ -1,22 +1,21 @@
-## About Begin
+# 🏥 TeleCare - Cuidado Conectado
 
-- Começando a partir do zero
+## 🚀 Como executar o projeto localmente
 
+### Pré-requisitos
+Certifique-se de que tem instalado no seu computador:
+- [Node.js e NPM](https://nodejs.org/) (obrigatório para compilar o Tailwind CSS)
+- [PHP](https://www.php.net/) e ambiente Laravel (Composer) já configurados
+
+---
+
+### 🛠️ Passos para Configuração
+
+**1. Instalar o Tailwind CSS e dependências do Frontend:**
+Com o projeto já clonado e as dependências do PHP instaladas, abra o terminal na pasta raiz do projeto. O comando abaixo vai ler o ficheiro `package.json` e baixar o Tailwind para a máquina do seu amigo (criando a pasta `node_modules`):
 ```bash
-copy .env.example .env
-```
-### Mudar o DB_CONNECTION do .env para mysql e descomentar os códigos
+npm install
+npm run dev (em um terminal)
+php artisan serv (em outro terminal)
 
-```bash
-composer composer install
-composer update
-php artisan key:generate
-php artisan migrate
-php artisan serve
-```
-
-### Instalar Talwind e rodar ao mesmo tempo que o php artisan serve ( num segundo terminal )
-```bash
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
 ```
