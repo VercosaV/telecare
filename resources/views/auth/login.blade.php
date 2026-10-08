@@ -76,10 +76,10 @@
                         </div>
 
                         <!-- Botão Entrar -->
-                        <button type="submit"
-                            class="w-full h-[45px] mt-4 rounded-full bg-[#95b8a0] hover:bg-[#7a9984] transition-colors flex justify-center items-center shadow-sm">
+                        <button type="submit" class="w-full h-[45px] mt-4 rounded-full bg-[#95b8a0] hover:bg-[#7a9984] transition-colors flex justify-center items-center shadow-sm">
                             <span class="text-[20px] font-bold text-white">ENTRAR</span>
                         </button>
+                        <a href="{{ route('dashboard') }}" class="text-[14px] underline text-[#098e98] hover:text-[#066a72] transition-colors">Acessar Dashboard</a>
                     </form>
                 </div>
             </div>
