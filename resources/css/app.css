@@ -1,6 +1,7 @@
+@import './auth/login.css';
+@import './auth/register.css';
+@import './paciente/index.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import './auth/login.css';
-@import './auth/register.css';

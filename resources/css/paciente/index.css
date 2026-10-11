@@ -1,0 +1,281 @@
+/* Resets básicos e tipografia */
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #EEF7FF;
+    color: #1E1E1E;
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* =========================================
+   Sidebar (Menu Lateral)
+   ========================================= */
+.sidebar {
+    width: 300px;
+    background-color: #EEF7FF;
+    box-shadow: 2px 0px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    padding-top: 40px;
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+.sidebar-logo {
+    text-align: center;
+    margin-bottom: 35px;
+    padding: 0 20px;
+}
+
+.sidebar-logo img {
+    max-width: 100%;
+    height: auto;
+}
+
+.sidebar-nav {
+    flex-grow: 1;
+    padding: 0 20px;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.nav-item {
+    display: block;
+    padding: 12px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    border-radius: 10px;
+    background-color: white;
+    transition: all 0.2s;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.05);
+}
+
+.nav-item:hover {
+    background-color: #e2e8f0;
+    color: black;
+}
+
+.nav-item.active {
+    background-color: #95B8A0;
+    color: white;
+    font-weight: 600;
+}
+
+/* Rodapé da Sidebar */
+.sidebar-footer {
+    padding: 30px 20px;
+    border-top: 1px solid rgba(217, 217, 217, 0.80);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-role, .user-name {
+    color: black;
+    font-size: 16px;
+    line-height: 1.2;
+}
+
+.user-crm {
+    color: #65758B;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.logout-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: black;
+    text-decoration: none;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+.icon-sair {
+    width: 20px;
+    height: 20px;
+}
+
+/* =========================================
+   Conteúdo Principal (Main Content)
+   ========================================= */
+.main-content {
+    flex-grow: 1;
+    padding: 40px 20px;
+    overflow-y: auto;
+    background-color: #EEF7FF;
+}
+
+.content-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Cabeçalho */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.header-title-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-back {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-back img {
+    width: 30px;
+    height: 30px;
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+    color: black;
+    line-height: 1.2;
+}
+
+.page-subtitle {
+    color: #65758B;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 2px 0 0 0;
+}
+
+.btn-novo {
+    background-color: #95B8A0;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    width: 90px;
+    height: 35px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-novo:hover {
+    background-color: #7a9c84;
+}
+
+/* =========================================
+   Lista de Pacientes
+   ========================================= */
+.patient-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.patient-card {
+    background: white;
+    border-radius: 12px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+}
+
+.patient-card:hover {
+    transform: translateY(-1px);
+}
+
+.patient-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.patient-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.patient-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 2px 0;
+    color: black;
+    line-height: 1.2;
+}
+
+.patient-meta {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.patient-cpf, .patient-birth {
+    font-size: 13px;
+    color: #65758B;
+    font-weight: 500;
+}
+
+.btn-options {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-options img {
+    width: 24px;
+    height: 24px;
+}
