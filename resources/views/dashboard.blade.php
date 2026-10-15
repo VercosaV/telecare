@@ -29,7 +29,7 @@
     <aside class="w-full xl:w-[300px] bg-[#eef7ff] shadow-lg flex flex-col p-6 shrink-0 xl:sticky xl:top-0 xl:h-screen">
       <!-- Logo -->
       <a href="#" class="flex justify-center mb-10">
-        <img src="{{ asset('img/Logotipo.png') }}" alt="Logotipo Telecare">
+        <img src="{{ asset('images/dash/logotipo.png') }}" alt="Logotipo Telecare">
       </a>
 
       <!-- Navegação -->
@@ -65,47 +65,47 @@
       <!-- CARDS DO TOPO -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Card 1 -->
-        <div class="bg-[#bef0d7] rounded-[15px] border-l-[14px] border-[#81a392] shadow-md p-6 flex flex-col justify-between h-[170px]">
+        <div class="bg-[#bef0d7] rounded-[15px] border-l-[14px] border-[#81a392] shadow-md p-6 flex flex-col justify-between h-[190px]">
           <div class="flex justify-between items-start">
             <div>
               <p class="font-inria text-[22px] text-black">Pacientes Hoje:</p>
               <p class="font-inria text-[48px] font-bold tracking-tight mt-2">07</p>
             </div>
-            <img class="w-10 h-10 mt-2" src="data:image/svg+xml;base64,…(users.svg)" alt="Users">
+            <img class="w-10 h-10 mt-2" src="{{ asset('images/dash/usuario.svg') }}" alt="Users">
           </div>
           <div class="flex items-center gap-2 mt-auto border-t border-[#81a392]/30 pt-2">
             <a href="#" class="font-inria text-[22px] text-[#81a392] hover:underline">Acessar Agenda</a>
-            <img class="w-6 h-6" src="data:image/svg+xml;base64,…(chevron-right.svg)" alt="Seta">
+            <img class="w-6 h-6" src="{{ asset('images/dash/seta.svg') }}" alt="Seta">
           </div>
         </div>
 
         <!-- Card 2 -->
-        <div class="bg-white rounded-[15px] border-l-[14px] border-[#519ebc] shadow-md p-6 flex flex-col justify-between h-[170px]">
+        <div class="bg-white rounded-[15px] border-l-[14px] border-[#519ebc] shadow-md p-6 flex flex-col justify-between h-[190px]">
           <div class="flex justify-between items-start">
             <div>
               <p class="font-inria text-[22px] text-black">Consultas Concluídas:</p>
               <p class="font-inria text-[48px] font-bold tracking-tight mt-2">02</p>
             </div>
-            <img class="w-10 h-10 mt-2" src="data:image/svg+xml;base64,…(check-circle.svg)" alt="Check">
+            <img class="w-10 h-10 mt-2" src="{{ asset('images/dash/check.svg') }}" alt="Check">
           </div>
           <div class="flex items-center gap-2 mt-auto border-t border-gray-200 pt-2">
             <a href="#" class="font-inria text-[22px] text-[#519ebc] hover:underline">Ver Lista</a>
-            <img class="w-6 h-6" src="data:image/svg+xml;base64,…(chevron-right.svg)" alt="Seta">
+            <img class="w-6 h-6" src="{{ asset('images/dash/seta.svg') }}"  alt="Seta">
           </div>
         </div>
 
         <!-- Card 3 -->
-        <div class="bg-[#f6e8b7] rounded-[15px] border-l-[14px] border-[#eab946] shadow-md p-6 flex flex-col justify-between h-[170px]">
+        <div class="bg-[#f6e8b7] rounded-[15px] border-l-[14px] border-[#eab946] shadow-md p-6 flex flex-col justify-between h-[190px]">
           <div class="flex justify-between items-start">
             <div>
               <p class="font-inria text-[22px] text-black">Próximo Horário Vago:</p>
               <p class="font-inria text-[48px] font-bold tracking-tight mt-2">17:00</p>
             </div>
-            <img class="w-10 h-10 mt-2" src="data:image/svg+xml;base64,…(clock.svg)" alt="Clock">
+            <img class="w-10 h-10 mt-2" src="{{ asset('images/dash/clock.svg') }}" alt="Clock">
           </div>
           <div class="flex items-center gap-2 mt-auto border-t border-[#eab946]/30 pt-2">
             <a href="#" class="font-inria text-[22px] text-black/60 hover:underline">Ver Horários</a>
-            <img class="w-6 h-6" src="data:image/svg+xml;base64,…(chevron-right.svg)" alt="Seta">
+            <img class="w-6 h-6" src="{{ asset('images/dash/seta.svg') }}" alt="Seta">
           </div>
         </div>
       </div>
@@ -113,14 +113,14 @@
       <!-- SEÇÃO INFERIOR: PRÓXIMO ATENDIMENTO E AGENDA -->
       <div class="flex flex-col lg:flex-row gap-6">
         
-        <!-- AGENDA DO DIA (Ocupa mais espaço) -->
+        <!-- AGENDA DO DIA -->
         <div class="bg-white rounded-[15px] shadow-md p-6 lg:flex-[2] flex flex-col">
           <!-- Header da Agenda -->
           <div class="flex justify-between items-center mb-6">
             <h2 class="font-inria text-[30px] text-black">Agenda do Dia</h2>
-            <a href="#" class="flex items-center gap-1 font-inria text-[16px] text-black hover:underline">
+            <a href="#" class="flex items-center gap-1 font-inria text-[18px] text-black hover:underline">
               Acessar Agenda
-              <img class="w-4 h-4" src="data:image/svg+xml;base64,…(chevron-right.svg)" alt="Seta">
+              <img class="w-4 h-4" src="{{ asset('images/dash/seta.svg') }}" alt="Seta">
             </a>
           </div>
 

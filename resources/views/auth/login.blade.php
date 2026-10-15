@@ -36,7 +36,7 @@
 
                     <!-- Logotipo -->
                     <div class="flex justify-center">
-                        <img class="h-[120px] w-auto object-contain" src="{{ asset('images/auth/logotipo.png') }}"
+                        <img class="h-[120px] w-auto object-contain" src="{{ asset('images/dash/logotipo.png') }}"
                             alt="Logotipo TeleCare">
                     </div>
 
