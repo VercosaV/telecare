@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pacientes - TeleCare</title>
-    
+
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Fonte Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,11 +20,12 @@
 
 <body>
     <div class="dashboard-container">
-        
+
         <!-- Menu Lateral (Sidebar) -->
         <aside class="sidebar">
             <div class="sidebar-logo">
-                <img src="{{ asset('images/auth/logotipo.png') }}" onerror="this.src='https://placehold.co/215x166?text=Logo+TeleCare'" alt="Logo TeleCare">
+                <img src="{{ asset('images/dash/logotipo.png') }}"
+                    onerror="this.src='https://placehold.co/215x166?text=Logo+TeleCare'" alt="Logo TeleCare">
             </div>
 
             <nav class="sidebar-nav">
@@ -47,7 +48,8 @@
                     </div>
                 </div>
                 <a href="#" class="logout-link">
-                    <img src="{{ asset('images/paciente/Log out.svg') }}" onerror="this.style.display='none'" alt="Sair" class="icon-sair">
+                    <img src="{{ asset('images/paciente/Log out.svg') }}" onerror="this.style.display='none'"
+                        alt="Sair" class="icon-sair">
                     Sair do Sistema
                 </a>
             </div>
@@ -56,7 +58,7 @@
         <!-- Conteúdo Principal -->
         <main class="main-content">
             <div class="content-wrapper">
-                
+
                 @if (session('mensagem'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ session('mensagem') }}
@@ -68,24 +70,28 @@
                 <header class="page-header">
                     <div class="header-title-group">
                         <button class="btn-back">
-                            <img src="{{ asset('images/paciente/Arrow 1.svg') }}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' width=\'24\' height=\'24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><line x1=\'19\' y1=\'12\' x2=\'5\' y2=\'12\'></line><polyline points=\'12 19 5 12 12 5\'></polyline></svg>'" alt="Voltar">
+                            <img src="{{ asset('images/paciente/Arrow 1.svg') }}"
+                                onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' width=\'24\' height=\'24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><line x1=\'19\' y1=\'12\' x2=\'5\' y2=\'12\'></line><polyline points=\'12 19 5 12 12 5\'></polyline></svg>'"
+                                alt="Voltar">
                         </button>
                         <div>
                             <h1 class="page-title">Lista de Pacientes</h1>
                             <p class="page-subtitle">Consulte seus pacientes</p>
                         </div>
                     </div>
-                    <button class="btn-novo">Novo</button>
+                    <a href="{{ route('pacientes.create') }}" class="btn-novo">
+                        Novo
+                    </a>
                 </header>
 
                 <!-- Lista de Pacientes -->
                 <section class="patient-list">
-                    
+
                     <!-- Utilize um foreach do Blade aqui para gerar a lista a partir do banco -->
-                    {{-- @foreach($pacientes as $paciente) --}}
+                    {{-- @foreach ($pacientes as $paciente) --}}
                     <article class="patient-card">
-                        <img src="https://placehold.co/42x42" alt="Foto do Paciente" class="patient-avatar">
-                        
+                        <img src="images/paciente/acount.png" alt="Foto do Paciente" class="patient-avatar">
+
                         <div class="patient-info">
                             <h2 class="patient-name">Paciente Teste</h2>
                             <div class="patient-meta">
@@ -93,41 +99,15 @@
                                 <span class="patient-birth">Nascimento: 01/01/1990</span>
                             </div>
                         </div>
-                        
+
                         <button class="btn-options">
-                            <img src="{{ asset('images/paciente/More vertical.svg') }}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' width=\'24\' height=\'24\' fill=\'none\' stroke=\'black\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><circle cx=\'12\' cy=\'12\' r=\'1\'></circle><circle cx=\'12\' cy=\'5\' r=\'1\'></circle><circle cx=\'12\' cy=\'19\' r=\'1\'></circle></svg>'" alt="Opções">
+                            <img src="{{ asset('images/paciente/More vertical.svg') }}"
+                                onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' width=\'24\' height=\'24\' fill=\'none\' stroke=\'black\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><circle cx=\'12\' cy=\'12\' r=\'1\'></circle><circle cx=\'12\' cy=\'5\' r=\'1\'></circle><circle cx=\'12\' cy=\'19\' r=\'1\'></circle></svg>'"
+                                alt="Opções">
                         </button>
                     </article>
                     {{-- @endforeach --}}
-                    
-                    <!-- Cópias estáticas apenas para simular a lista visualmente -->
-                    <article class="patient-card">
-                        <img src="https://placehold.co/42x42" alt="Foto do Paciente" class="patient-avatar">
-                        <div class="patient-info">
-                            <h2 class="patient-name">Paciente Teste</h2>
-                            <div class="patient-meta">
-                                <span class="patient-cpf">CPF: 999.999.999-99</span>
-                                <span class="patient-birth">Nascimento: 01/01/1990</span>
-                            </div>
-                        </div>
-                        <button class="btn-options">
-                            <img src="{{ asset('images/paciente/More vertical.svg') }}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' width=\'24\' height=\'24\' fill=\'none\' stroke=\'black\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><circle cx=\'12\' cy=\'12\' r=\'1\'></circle><circle cx=\'12\' cy=\'5\' r=\'1\'></circle><circle cx=\'12\' cy=\'19\' r=\'1\'></circle></svg>'" alt="Opções">
-                        </button>
-                    </article>
-                    
-                    <article class="patient-card">
-                        <img src="https://placehold.co/42x42" alt="Foto do Paciente" class="patient-avatar">
-                        <div class="patient-info">
-                            <h2 class="patient-name">Paciente Teste</h2>
-                            <div class="patient-meta">
-                                <span class="patient-cpf">CPF: 999.999.999-99</span>
-                                <span class="patient-birth">Nascimento: 01/01/1990</span>
-                            </div>
-                        </div>
-                        <button class="btn-options">
-                            <img src="{{ asset('images/paciente/More vertical.svg') }}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' width=\'24\' height=\'24\' fill=\'none\' stroke=\'black\' stroke-width=\'2\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><circle cx=\'12\' cy=\'12\' r=\'1\'></circle><circle cx=\'12\' cy=\'5\' r=\'1\'></circle><circle cx=\'12\' cy=\'19\' r=\'1\'></circle></svg>'" alt="Opções">
-                        </button>
-                    </article>
+
 
                 </section>
             </div>

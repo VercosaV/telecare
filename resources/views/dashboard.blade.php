@@ -36,7 +36,7 @@
       <nav class="flex flex-col gap-3 mb-10">
         <a href="#" class="h-[50px] flex justify-center items-center rounded-[15px] bg-[#95b8a0] text-white text-[20px] font-semibold transition hover:opacity-90">Início</a>
         <a href="#" class="h-[50px] flex justify-center items-center rounded-[15px] bg-white text-black text-[20px] transition hover:bg-gray-50">Agenda</a>
-        <a href="#" class="h-[50px] flex justify-center items-center rounded-[15px] bg-white text-black text-[20px] transition hover:bg-gray-50">Pacientes</a>
+        <a href="{{ route('pacientes.index') }}" class="h-[50px] flex justify-center items-center rounded-[15px] bg-white text-black text-[20px] transition hover:bg-gray-50">Pacientes</a>
         <a href="#" class="h-[50px] flex justify-center items-center rounded-[15px] bg-white text-black text-[20px] transition hover:bg-gray-50">Profissionais</a>
         <a href="#" class="h-[50px] flex justify-center items-center rounded-[15px] bg-white text-black text-[20px] transition hover:bg-gray-50">Configurações</a>
       </nav>

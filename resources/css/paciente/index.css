@@ -279,3 +279,10 @@ body {
     width: 24px;
     height: 24px;
 }
+
+.btn-novo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none; /* Remove o sublinhado do link */
+}

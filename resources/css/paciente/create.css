@@ -1,0 +1,486 @@
+/* ==========================================================================
+   Variáveis e Configurações Globais
+   ========================================================================== */
+:root {
+    --bg-main: #EEF7FF;
+    --bg-white: #ffffff;
+    --text-default: #1E1E1E;
+    --text-secondary: #65758B;
+    --text-tertiary: #B3B3B3;
+    --text-dark: #262626;
+    --border-default: #D9D9D9;
+    --btn-primary: #81A392;
+    --btn-secondary: #098E98;
+    --btn-danger: rgba(149, 11, 11, 0.80);
+    --nav-active: #95B8A0;
+    --font-inter: 'Inter', sans-serif;
+    --font-inria: 'Inria Sans', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-main);
+    font-family: var(--font-inter);
+}
+
+/* Container Principal */
+.main-container {
+    width: 1280px;
+    height: 1168px;
+    position: relative;
+    background: var(--bg-main);
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   Sidebar / Navegação Lateral
+   ========================================================================== */
+.sidebar {
+    width: 300px;
+    height: 832px;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    background: var(--bg-main);
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.25);
+}
+
+.logo-container {
+    width: 214.78px;
+    height: 166px;
+    left: 42px;
+    top: 65px;
+    position: absolute;
+}
+
+.logo {
+    width: 214.78px;
+    height: 166px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.nav-menu {
+    width: 260px;
+    height: 298px;
+    left: 20px;
+    top: 267px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.nav-item {
+    width: 260px;
+    height: 50px;
+    background: var(--bg-white);
+    overflow: hidden;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.nav-item.active {
+    background: var(--nav-active);
+}
+
+.nav-text {
+    text-align: center;
+    color: black;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.nav-item.active .nav-text {
+    color: white;
+    font-weight: 600;
+}
+
+.sidebar-divider {
+    width: 267px;
+    height: 0px;
+    left: 16px;
+    top: 671px;
+    position: absolute;
+    outline: 1px rgba(217, 217, 217, 0.80) solid;
+    outline-offset: -0.50px;
+}
+
+.user-profile {
+    position: absolute;
+    left: 16px;
+    top: 701px;
+    display: flex;
+    gap: 5px;
+}
+
+.profile-avatar {
+    width: 74px;
+    height: 74px;
+}
+
+.profile-info {
+    margin-left: 5px;
+}
+
+.profile-name {
+    color: black;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.profile-crm {
+    color: black;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 16px;
+    margin-top: 20px;
+}
+
+.logout-button {
+    position: absolute;
+    left: 27px;
+    top: 788px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.logout-icon-container {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.logout-icon {
+    width: 22.50px;
+    height: 22.50px;
+    left: 3.75px;
+    top: 3.75px;
+    position: absolute;
+    outline: 4px var(--text-default) solid;
+    outline-offset: -2px;
+}
+
+.logout-text {
+    margin-left: 9px;
+    color: black;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 16px;
+}
+
+/* ==========================================================================
+   Header da Página
+   ========================================================================== */
+.page-header {
+    width: 650px;
+    height: 52px;
+    left: 470px;
+    top: 66px;
+    position: absolute;
+}
+
+.header-icon-box {
+    width: 52px;
+    height: 52px;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    border-radius: 15px;
+}
+
+.header-titles {
+    position: absolute;
+    left: 59px;
+    top: 0px;
+}
+
+.page-title {
+    width: 591px;
+    height: 23.64px;
+    color: black;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.page-subtitle {
+    width: 591px;
+    height: 28.36px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* ==========================================================================
+   Cards e Formulários
+   ========================================================================== */
+.card {
+    position: absolute;
+    left: 460px;
+    background: var(--bg-white);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    width: 660px;
+}
+
+.card-dados-paciente {
+    top: 148px;
+    height: 477px;
+}
+
+.card-endereco-paciente {
+    top: 655px;
+    height: 320px;
+}
+
+.card-actions {
+    top: 1005px;
+    height: 97px;
+}
+
+.card-title {
+    position: absolute;
+    width: 552px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    color: var(--text-default);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 28px;
+}
+
+.title-dados-paciente {
+    left: 36px;
+    top: 1px;
+}
+
+.title-endereco {
+    left: 43px;
+    top: 0px;
+}
+
+/* Rótulos dos Campos */
+.field-label {
+    position: absolute;
+    color: var(--text-default);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22.40px;
+}
+
+/* Entradas de Texto (Inputs) */
+.input-box {
+    position: absolute;
+    background: var(--bg-white);
+    overflow: hidden;
+    border-radius: 8px;
+    outline: 1px var(--border-default) solid;
+    outline-offset: -0.50px;
+}
+
+.input-text {
+    height: 30px;
+    position: absolute;
+    left: 8px;
+    top: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--text-dark);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 14px;
+}
+
+.input-text.text-center {
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.placeholder-text {
+    color: var(--text-tertiary);
+    font-size: 15px;
+    line-height: 15px;
+}
+
+/* --- Posicionamento dos Campos: Dados do Paciente --- */
+.photo-upload-container {
+    width: 102px;
+    height: 20px;
+    left: 61px;
+    top: 197px;
+    position: absolute;
+}
+
+.photo-preview {
+    width: 120px;
+    height: 120px;
+    left: -9px;
+    top: -124px;
+    position: absolute;
+}
+
+.btn-take-photo {
+    width: 102px;
+    height: 20px;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.btn-take-photo-border {
+    width: 102px;
+    height: 20px;
+    position: absolute;
+    border-radius: 100px;
+    border: 1px #FF0000 solid;
+}
+
+.btn-take-photo-icon {
+    width: 11px;
+    height: 9px;
+    left: 19px;
+    top: 5.50px;
+    position: absolute;
+    outline: 1px #FF0000 solid;
+    outline-offset: -0.50px;
+}
+
+.btn-take-photo-text {
+    width: 50px;
+    height: 20px;
+    left: 33px;
+    top: 0px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #FF0000;
+    font-size: 10px;
+    font-family: var(--font-inria);
+    font-weight: 400;
+}
+
+.label-nome { left: 218px; top: 89px; width: 174px; }
+.input-nome { left: 218px; top: 117px; width: 402px; height: 30px; }
+.input-nome .input-text { width: 264px; }
+
+.label-nascimento { left: 430px; top: 163px; width: 174px; }
+.input-nascimento { left: 430px; top: 191px; width: 190px; height: 30px; }
+.input-nascimento .input-text { width: 264px; }
+
+.label-sexo { left: 218px; top: 163px; width: 174px; }
+.input-sexo { left: 218px; top: 191px; width: 190px; height: 30px; }
+.input-sexo .input-text { width: 182px; }
+
+.label-rg { left: 36px; top: 237px; width: 252px; }
+.input-rg { left: 36px; top: 265px; width: 272px; height: 30px; }
+.input-rg .input-text { width: 264px; }
+
+.label-cpf { left: 348px; top: 237px; width: 252px; }
+.input-cpf { left: 348px; top: 265px; width: 272px; height: 30px; }
+.input-cpf .input-text { width: 264px; }
+
+.label-telefone { left: 36px; top: 307px; width: 247px; }
+.input-ddd { left: 36px; top: 335px; width: 40px; height: 30px; }
+.input-telefone { left: 84px; top: 335px; width: 224px; height: 30px; }
+.input-telefone .input-text { width: 97px; }
+
+.label-email { left: 348px; top: 307px; width: 254px; }
+.input-email { left: 348px; top: 335px; width: 275px; height: 30px; }
+.input-email .input-text { width: 264px; }
+
+.label-profissao { left: 38px; top: 381px; width: 254px; }
+.input-profissao { left: 38px; top: 409px; width: 275px; height: 30px; }
+.input-profissao .input-text { width: 264px; }
+
+.label-sus { left: 348px; top: 381px; width: 254px; }
+.input-sus { left: 348px; top: 409px; width: 275px; height: 30px; }
+.input-sus .input-text { width: 248px; top: 0px; }
+
+/* --- Posicionamento dos Campos: Endereço --- */
+.label-cep { left: 42.65px; top: 64.65px; width: 552.37px; height: 21.66px; }
+.input-cep { left: 43px; top: 92px; width: 166px; height: 30px; }
+.input-cep .input-text { width: 264px; }
+
+.label-cidade { left: 246px; top: 65px; width: 201.05px; height: 21.66px; }
+.input-cidade { left: 246px; top: 92.57px; width: 276.18px; height: 29.54px; }
+.input-cidade .input-text { width: 109px; top: 0px; }
+
+.label-estado { left: 558.58px; top: 65px; width: 55px; height: 21.66px; }
+.input-estado { left: 558.58px; top: 92.57px; width: 35px; height: 29.54px; }
+.input-estado .input-text { width: 53px; }
+
+.label-logradouro { left: 42.65px; top: 139.48px; width: 552.37px; height: 21.66px; }
+.input-logradouro { left: 43px; top: 167px; width: 571px; height: 30px; }
+.input-logradouro .input-text { width: 264px; }
+
+.label-bairro { left: 42.65px; top: 213.17px; width: 127.94px; height: 21.66px; }
+.input-bairro { left: 43px; top: 241px; width: 160px; height: 29px; }
+.input-bairro .input-text { width: 53px; }
+
+.label-numero { left: 223.65px; top: 213.32px; width: 166.52px; height: 21.66px; }
+.input-numero { left: 224px; top: 241px; width: 63px; height: 29px; }
+.input-numero .input-text { width: 53px; }
+
+.label-complemento { left: 318.83px; top: 213.32px; width: 298.52px; height: 21.66px; }
+.input-complemento { left: 319px; top: 240.89px; width: 295px; height: 29.54px; }
+.input-complemento .input-text { width: 109px; top: 0px; }
+
+/* ==========================================================================
+   Botões de Ação
+   ========================================================================== */
+.btn {
+    position: absolute;
+    top: 26px;
+    height: 45px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-family: var(--font-inria);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-voltar {
+    left: 43px;
+    width: 130.26px;
+    background: var(--btn-danger);
+    color: white;
+}
+
+.btn-rascunho {
+    left: 235px;
+    width: 190px;
+    background: var(--bg-white);
+    color: var(--btn-secondary);
+    border: 2px var(--btn-secondary) solid;
+}
+
+.btn-salvar {
+    left: 487px;
+    width: 130.26px;
+    background: var(--btn-primary);
+    color: white;
+}
