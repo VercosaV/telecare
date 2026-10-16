@@ -12,7 +12,7 @@
         href="https://fonts.googleapis.com/css2?family=Inria+Sans:wght@400;700&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet">
 
-    @vite(['resources/css/app.css'])
+    @vite(['resources/css/paciente/create.css'])
 </head>
 
 <body>

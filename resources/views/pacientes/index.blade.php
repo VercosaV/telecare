@@ -30,7 +30,7 @@
 
             <nav class="sidebar-nav">
                 <ul>
-                    <li><a href="#" class="nav-item">Início</a></li>
+                    <li><a href="dashboard" class="nav-item">Início</a></li>
                     <li><a href="#" class="nav-item">Agenda</a></li>
                     <li><a href="#" class="nav-item active">Pacientes</a></li>
                     <li><a href="#" class="nav-item">Profissionais</a></li>
