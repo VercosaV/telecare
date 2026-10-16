@@ -1,7 +1,12 @@
+/* resources/css/app.css */
 @import './auth/login.css';
 @import './auth/register.css';
-@import './paciente/index.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Garante a mesma largura útil de tela em páginas curtas e longas */
+html {
+    overflow-y: scroll;
+}
