@@ -29,8 +29,7 @@ class EspecialidadeController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
-        if( Especialidade::create($request->all()))
+        if( Especialidade::create($request->validated()))
             {
                 return redirect()->route('especialidades.index')->with('mensagem', 'Especialidade inserida com sucesso!');
             } else {
@@ -62,7 +61,7 @@ class EspecialidadeController extends Controller
     public function update(Request $request, int $id)
     {
         $especialidades = Especialidade::findOrFail($id);
-        if($especialidades->update($request->all())){
+        if($especialidades->update($request->validated())){
             return redirect()->route('especialidades.index')->with('mensagem', 'Especialidade alterada com Sucesso!');
         } else {
             return redirect()->route('especialidades.index')->with('mensagem', 'Erro ao alterar a Especialidade!');

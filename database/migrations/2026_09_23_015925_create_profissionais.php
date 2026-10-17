@@ -20,7 +20,7 @@ return new class extends Migration
                 $table->foreignId('especialidade_id')
                     ->nullable()
                     ->constrained('especialidades') 
-                    ->onDelete('cascade');
+                    ->nullOnDelete();
 
                 $table->timestamps();
             });

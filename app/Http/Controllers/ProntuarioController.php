@@ -31,7 +31,7 @@ class ProntuarioController extends Controller
      */
     public function store(Request $request)
     {
-        if( Prontuario::create($request->all()))
+        if( Prontuario::create($request->validated()))
             {
                 return redirect()->route('prontuarios.index')->with('mensagem', 'Prontuario inserida com sucesso!');
             } else {
@@ -65,7 +65,7 @@ class ProntuarioController extends Controller
     public function update(Request $request, int $id)
     {
         $prontuarios = Prontuario::findOrFail($id);
-        if($prontuarios->update($request->all())){
+        if($prontuarios->update($request->validated())){
             return redirect()->route('prontuarios.index')->with('mensagem', 'Prontuario alterado com Sucesso!');
         } else {
             return redirect()->route('prontuarios.index')->with('mensagem', 'Erro ao alterar o Prontuario!');

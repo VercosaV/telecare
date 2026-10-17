@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Paciente;
 use Illuminate\Http\Request;
+use App\Http\Requests\StorePacienteRequest;
 
 class PacienteController extends Controller
 {
@@ -13,6 +14,7 @@ class PacienteController extends Controller
     public function index()
     {
         $pacientes = Paciente::all();
+
         return view('pacientes.index', compact('pacientes'));
     }
 
@@ -24,9 +26,7 @@ class PacienteController extends Controller
         return view('pacientes.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    /*
     public function store(Request $request)
     {
         if( Paciente::create($request->all()))
@@ -35,6 +35,13 @@ class PacienteController extends Controller
             } else {
                 return redirect()->route('pacientes.index')->with('mensagem', 'Erro ao inserir o paciente!');
             }
+    } */
+
+    public function store(StorePacienteRequest $request)
+    {
+        Paciente::create($request->all());
+
+        return redirect()->route('pacientes.index');
     }
 
     /**
@@ -43,6 +50,7 @@ class PacienteController extends Controller
     public function show(int $id)
     {
         $pacientes = Paciente::findOrFail($id);
+
         return view('pacientes.show', compact('pacientes'));
     }
 
@@ -52,6 +60,7 @@ class PacienteController extends Controller
     public function edit(int $id)
     {
         $pacientes = Paciente::findOrFail($id);
+
         return view('pacientes.edit', compact('pacientes'));
     }
 
@@ -61,7 +70,7 @@ class PacienteController extends Controller
     public function update(Request $request, int $id)
     {
         $pacientes = Paciente::findOrFail($id);
-        if($pacientes->update($request->all())){
+        if ($pacientes->update($request->all())) {
             return redirect()->route('pacientes.index')->with('mensagem', 'Paciente alterado com Sucesso!');
         } else {
             return redirect()->route('pacientes.index')->with('mensagem', 'Erro ao alterar o Paciente!');
@@ -74,7 +83,7 @@ class PacienteController extends Controller
     public function destroy(int $id)
     {
         $pacientes = Paciente::findOrFail($id);
-        if($pacientes->delete()) {
+        if ($pacientes->delete()) {
             return redirect()->route('pacientes.index')->with('mensagem', 'Paciente excluído!');
         } else {
             return redirect()->route('pacientes.index')->with('mensagem', 'Erro ao excluir o Paciente!');

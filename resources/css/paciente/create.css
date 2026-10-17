@@ -484,3 +484,11 @@ body {
     background: var(--btn-primary);
     color: white;
 }
+
+.arrow-back {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    left: 14px;
+    top: 14px;
+}
