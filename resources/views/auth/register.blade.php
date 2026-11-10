@@ -40,7 +40,19 @@
                         <h2 class="text-[22px] font-bold text-[#098e98]">Criar Nova Conta</h2>
                     </div>
 
-                    <form class="flex flex-col gap-4">
+                    <!-- Mensagens de Erro de Validação -->
+                    @if ($errors->any())
+                        <div class="p-3 text-sm text-red-700 bg-red-100 rounded-lg">
+                            <ul class="list-disc pl-5">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form method="POST" action="{{ route('register') }}" class="flex flex-col gap-4">
+                        @csrf
 
                         <!-- Campo Nome Completo -->
                         <div class="flex flex-col gap-1">
@@ -50,19 +62,7 @@
                                     src="{{ asset('images/auth/people.svg') }}" alt="Ícone Pessoa">
                                 <input
                                     class="w-full h-10 pl-10 pr-3.5 py-2 rounded-lg border border-gray-300 bg-white text-gray-500 placeholder-gray-400 focus:outline-none focus:border-[#098e98] focus:ring-1 focus:ring-[#098e98]"
-                                    type="text" placeholder="Digite seu Nome Completo">
-                            </div>
-                        </div>
-
-                        <!-- Campo CPF -->
-                        <div class="flex flex-col gap-1">
-                            <label class="text-[14px] text-[#1e1e1e]">CPF</label>
-                            <div class="relative flex items-center">
-                                <img class="absolute left-3 w-5 h-5 opacity-50"
-                                    src="{{ asset('images/auth/people.svg') }}" alt="Ícone Pessoa">
-                                <input
-                                    class="w-full h-10 pl-10 pr-3.5 py-2 rounded-lg border border-gray-300 bg-white text-gray-500 placeholder-gray-400 focus:outline-none focus:border-[#098e98] focus:ring-1 focus:ring-[#098e98]"
-                                    type="text" placeholder="Digite seu CPF">
+                                    type="text" name="name" value="{{ old('name') }}" placeholder="Digite seu Nome Completo" required autofocus>
                             </div>
                         </div>
 
@@ -74,7 +74,7 @@
                                     src="{{ asset('images/auth/people.svg') }}" alt="Ícone Email">
                                 <input
                                     class="w-full h-10 pl-10 pr-3.5 py-2 rounded-lg border border-gray-300 bg-white text-gray-500 placeholder-gray-400 focus:outline-none focus:border-[#098e98] focus:ring-1 focus:ring-[#098e98]"
-                                    type="email" placeholder="Digite seu email">
+                                    type="email" name="email" value="{{ old('email') }}" placeholder="Digite seu email" required>
                             </div>
                         </div>
 
@@ -86,7 +86,7 @@
                                     src="{{ asset('images/auth/cadeado.svg') }}" alt="Ícone Cadeado">
                                 <input
                                     class="w-full h-10 pl-10 pr-10 py-2 rounded-lg border border-gray-300 bg-white text-gray-500 placeholder-gray-400 focus:outline-none focus:border-[#098e98] focus:ring-1 focus:ring-[#098e98]"
-                                    type="password" placeholder="Digite sua senha">
+                                    type="password" name="password" placeholder="Digite sua senha" required>
                                 <img class="absolute right-3 w-5 h-5 cursor-pointer opacity-50 hover:opacity-100 transition-opacity"
                                     src="{{ asset('images/auth/olhocego.svg') }}" alt="Ocultar Senha">
                             </div>
@@ -100,7 +100,7 @@
                                     src="{{ asset('images/auth/cadeado.svg') }}" alt="Ícone Cadeado">
                                 <input
                                     class="w-full h-10 pl-10 pr-10 py-2 rounded-lg border border-gray-300 bg-white text-gray-500 placeholder-gray-400 focus:outline-none focus:border-[#098e98] focus:ring-1 focus:ring-[#098e98]"
-                                    type="password" placeholder="Digite sua senha">
+                                    type="password" name="password_confirmation" placeholder="Digite sua senha" required>
                                 <img class="absolute right-3 w-5 h-5 cursor-pointer opacity-50 hover:opacity-100 transition-opacity"
                                     src="{{ asset('images/auth/olhocego.svg') }}" alt="Ocultar Senha">
                             </div>
