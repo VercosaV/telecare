@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Paciente;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PacienteController extends Controller
 {
@@ -13,6 +14,7 @@ class PacienteController extends Controller
     public function index()
     {
         $pacientes = Paciente::all();
+
         return view('pacientes.index', compact('pacientes'));
     }
 
@@ -29,12 +31,16 @@ class PacienteController extends Controller
      */
     public function store(Request $request)
     {
-        if( Paciente::create($request->all()))
-            {
-                return redirect()->route('pacientes.index')->with('mensagem', 'paciente criado com sucesso!');
-            } else {
-                return redirect()->route('pacientes.index')->with('mensagem', 'Erro ao inserir o paciente!');
-            }
+        $dados = $request->validate([
+            'nome' => 'required|string|max:255',
+            'cpf' => 'required|digits:11|unique:pacientes,cpf',
+            'telefone' => 'required|string|max:20',
+            'email' => 'required|email|max:255|unique:pacientes,email',
+        ]);
+
+        Paciente::create($dados);
+
+        return redirect()->route('pacientes.index')->with('mensagem', 'Paciente criado com sucesso!');
     }
 
     /**
@@ -43,6 +49,7 @@ class PacienteController extends Controller
     public function show(int $id)
     {
         $pacientes = Paciente::findOrFail($id);
+
         return view('pacientes.show', compact('pacientes'));
     }
 
@@ -52,6 +59,7 @@ class PacienteController extends Controller
     public function edit(int $id)
     {
         $pacientes = Paciente::findOrFail($id);
+
         return view('pacientes.edit', compact('pacientes'));
     }
 
@@ -60,12 +68,18 @@ class PacienteController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        $pacientes = Paciente::findOrFail($id);
-        if($pacientes->update($request->all())){
-            return redirect()->route('pacientes.index')->with('mensagem', 'Paciente alterado com Sucesso!');
-        } else {
-            return redirect()->route('pacientes.index')->with('mensagem', 'Erro ao alterar o Paciente!');
-        }
+        $paciente = Paciente::findOrFail($id);
+
+        $dados = $request->validate([
+            'nome' => 'required|string|max:255',
+            'cpf' => ['required', 'digits:11', Rule::unique('pacientes', 'cpf')->ignore($paciente->id)],
+            'telefone' => 'required|string|max:20',
+            'email' => ['required', 'email', 'max:255', Rule::unique('pacientes', 'email')->ignore($paciente->id)],
+        ]);
+
+        $paciente->update($dados);
+
+        return redirect()->route('pacientes.index')->with('mensagem', 'Paciente alterado com sucesso!');
     }
 
     /**
@@ -74,7 +88,7 @@ class PacienteController extends Controller
     public function destroy(int $id)
     {
         $pacientes = Paciente::findOrFail($id);
-        if($pacientes->delete()) {
+        if ($pacientes->delete()) {
             return redirect()->route('pacientes.index')->with('mensagem', 'Paciente excluído!');
         } else {
             return redirect()->route('pacientes.index')->with('mensagem', 'Erro ao excluir o Paciente!');

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Prontuario;
 use App\Models\Paciente;
+use App\Models\Prontuario;
 use Illuminate\Http\Request;
 
 class ProntuarioController extends Controller
@@ -14,6 +14,7 @@ class ProntuarioController extends Controller
     public function index()
     {
         $prontuarios = Prontuario::with('paciente')->get();
+
         return view('prontuarios.index', compact('prontuarios'));
     }
 
@@ -23,6 +24,7 @@ class ProntuarioController extends Controller
     public function create()
     {
         $pacientes = Paciente::all();
+
         return view('prontuarios.create', compact('pacientes'));
     }
 
@@ -31,12 +33,15 @@ class ProntuarioController extends Controller
      */
     public function store(Request $request)
     {
-        if( Prontuario::create($request->all()))
-            {
-                return redirect()->route('prontuarios.index')->with('mensagem', 'Prontuario inserida com sucesso!');
-            } else {
-                return redirect()->route('prontuarios.index')->with('mensagem', 'Erro ao inserir o Prontuario!');
-            }
+        // ProntuarioController, store e update usam as mesmas regras
+        $dados = $request->validate([
+            'paciente_id' => 'required|exists:pacientes,id',
+            'data_registro' => 'required|date',
+            'diagnostico' => 'required|string',
+        ]);
+
+        Prontuario::create($dados);      // no store
+
     }
 
     /**
@@ -46,6 +51,7 @@ class ProntuarioController extends Controller
     {
         $prontuarios = Prontuario::findOrFail($id);
         $pacientes = $prontuarios->paciente;
+
         return view('prontuarios.show', compact('prontuarios', 'pacientes'));
     }
 
@@ -56,6 +62,7 @@ class ProntuarioController extends Controller
     {
         $prontuarios = Prontuario::findOrFail($id);
         $pacientes = $prontuarios->paciente;
+
         return view('prontuarios.edit', compact('prontuarios', 'pacientes'));
     }
 
@@ -65,11 +72,14 @@ class ProntuarioController extends Controller
     public function update(Request $request, int $id)
     {
         $prontuarios = Prontuario::findOrFail($id);
-        if($prontuarios->update($request->all())){
-            return redirect()->route('prontuarios.index')->with('mensagem', 'Prontuario alterado com Sucesso!');
-        } else {
-            return redirect()->route('prontuarios.index')->with('mensagem', 'Erro ao alterar o Prontuario!');
-        }
+        // ProntuarioController, store e update usam as mesmas regras
+        $dados = $request->validate([
+            'paciente_id' => 'required|exists:pacientes,id',
+            'data_registro' => 'required|date',
+            'diagnostico' => 'required|string',
+        ]);
+
+        $prontuarios->update($dados);    // no update
     }
 
     /**
@@ -78,7 +88,7 @@ class ProntuarioController extends Controller
     public function destroy(int $id)
     {
         $prontuarios = Prontuario::findOrFail($id);
-        if($prontuarios->delete()) {
+        if ($prontuarios->delete()) {
             return redirect()->route('prontuarios.index')->with('mensagem', 'Prontuario excluído!');
         } else {
             return redirect()->route('prontuarios.index')->with('mensagem', 'Erro ao excluir o Prontuario!');
