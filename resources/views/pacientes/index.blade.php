@@ -19,9 +19,9 @@
         <!-- Cabeçalho da Página -->
         <header class="page-header">
             <div class="header-title-group">
-                <button class="btn-back">
-                    <img src="{{ asset('images/paciente/Arrow 1.svg') }}" alt="Voltar">
-                </button>
+                <a href="dashboard" class="btn-back">
+                    <img  src="{{ asset('images/paciente/Arrow 1.svg') }}" alt="Voltar">
+                </a>
                 <div>
                     <h1 class="page-title">Lista de Pacientes</h1>
                     <p class="page-subtitle">Consulte seus pacientes</p>

@@ -71,12 +71,17 @@
 
             <!-- Perfil -->
             <div class="flex items-center gap-4 mb-6">
+                <!-- Se houver uma coluna 'foto' no banco, você pode puxar dinamicamente, caso contrário, mantemos a padrão -->
                 <img class="w-[74px] h-[74px] rounded-full object-cover bg-gray-200"
-                    src="{{ asset('images/paciente/medico.png') }}" onerror="this.src='https://placehold.co/74x74'"
+                    src="{{ asset('images/paciente/medico.png') }}" 
+                    onerror="this.src='https://placehold.co/74x74'"
                     alt="Icon Doctor">
                 <div>
-                    <p class="text-[20px] font-normal leading-tight">Admin<br>Dr. José Zé de Zezé</p>
-                    <p class="text-[var(--body-size-medium)] text-gray-700 mt-1">CRM: 707530</p>
+                    <!-- Puxa o nome do usuário logado -->
+                    <p class="text-[20px] font-normal leading-tight">Admin<br>{{ auth()->user()->nome ?? auth()->user()->name }}</p>
+                    
+                    <!-- Puxa o CRM (se você tiver essa coluna no banco de dados) -->
+                    <p class="text-[var(--body-size-medium)] text-gray-700 mt-1">CRM: {{ auth()->user()->crm ?? '000000' }}</p>
                 </div>
             </div>
 
