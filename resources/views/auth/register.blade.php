@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
 
     <!-- Importação do Tailwind CSS via Vite -->
     @vite(['resources/css/app.css'])
@@ -112,13 +113,15 @@
                         <!-- Botão Criar Conta -->
                         <button type="submit"
                             class="w-full h-[45px] mt-2 rounded-full bg-[#098e98] hover:bg-[#066a72] transition-colors flex justify-center items-center">
-                            <span class="text-[18px] font-bold text-white">CRIAR CONTA</span>
+                            <span class="text-[18px] font-bold text-white">Criar Conta</span>
                         </button>
                     </form>
-                    <button type="submit"
-                        class="w-full h-[45px] mt-2 rounded-full bg-[#098e98] hover:bg-[#066a72] transition-colors flex justify-center items-center">
-                        <a href="login" class="text-[18px] font-bold text-white">Entrar</a>
-                    </button>
+                    <a href="/login"
+                        class="flex justify-center items-center gap-2 mt-4 hover:opacity-80 transition-opacity">
+                        <img class="w-[25px] h-[25px]" src="{{ asset('images/auth/setaVoltar.svg') }}"
+                            alt="Seta Voltar">
+                        <span class="text-[18px] font-bold text-[#0c7b85]">Voltar para o Login</span>
+                    </a>
                 </div>
             </div>
         </div>

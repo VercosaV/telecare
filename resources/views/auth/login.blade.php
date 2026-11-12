@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tela Login Administrador - TeleCare</title>
+    <title>Login - TeleCare</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -97,14 +98,15 @@
                         </div>
 
                         <!-- Botão Entrar -->
-                        <button type="submit" class="w-full h-[45px] mt-4 rounded-full bg-[#95b8a0] hover:bg-[#7a9984] transition-colors flex justify-center items-center shadow-sm">
-                            <span class="text-[20px] font-bold text-white">ENTRAR</span>
+                        <button type="submit" class="w-full h-[45px] mt-4 rounded-full bg-[#098e98] hover:bg-[#066a72] transition-colors flex justify-center items-center shadow-sm">
+                            <span class="text-[20px] font-bold text-white">Entrar</span>
                         </button>
-                        
+
+                        <a href="register" class="w-full h-[45px] mt-1 rounded-full bg-transparent border-2 border-[#098e98] text-[#098e98] hover:bg-[#098e98]/10 transition-colors flex justify-center items-center text-[20px] font-bold">
+                            Criar Nova Conta
+                        </a>
                     </form>
-                    <button type="submit" class="w-full h-[45px] mt-4 rounded-full bg-[#95b8a0] hover:bg-[#7a9984] transition-colors flex justify-center items-center shadow-sm">
-                            <a href="register" class="text-[20px] font-bold text-white">Criar conta</a>
-                    </button>
+
                 </div>
             </div>
         </div>

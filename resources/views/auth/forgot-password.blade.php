@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap">
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
 
     @vite(['resources/css/app.css'])
 
@@ -60,8 +61,8 @@
                         </div>
 
                         <button type="submit"
-                            class="w-full h-[45px] mt-2 rounded-full bg-[#95b8a0] hover:bg-[#7a9984] transition-colors flex justify-center items-center shadow-sm">
-                            <span class="text-[18px] font-bold text-white">ENVIAR LINK</span>
+                            class="w-full h-[45px] mt-2 rounded-full bg-[#098e98] hover:bg-[#066a72] transition-colors flex justify-center items-center shadow-sm">
+                            <span class="text-[18px] font-bold text-white">Enviar Link</span>
                         </button>
 
                         <a href="/login"
