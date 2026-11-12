@@ -37,7 +37,7 @@
 
                     <!-- Logotipo -->
                     <div class="flex justify-center">
-                        <img class="h-[120px] w-auto object-contain" src="{{ asset('images/dash/logotipo.png') }}"
+                        <img class="h-[200px] w-auto object-contain" src="{{ asset('images/dash/logotipo.png') }}"
                             alt="Logotipo TeleCare">
                     </div>
 
@@ -88,7 +88,7 @@
                         <div class="flex items-center justify-between mt-1">
                             <label class="flex items-center gap-2 cursor-pointer">
                                 <input type="checkbox" name="remember"
-                                    class="w-4 h-4 rounded border-gray-300 text-[#95b8a0] focus:ring-[#95b8a0]">
+                                    class="w-4 h-4 rounded border-gray-300 text-[#098e98] focus:ring-[#066a72]">
                                 <span class="text-[14px] text-[#1e1e1e]">Lembrar-me</span>
                             </label>
                             @if (Route::has('password.request'))

@@ -52,19 +52,19 @@
             <!-- Navegação -->
             <nav class="flex flex-col gap-3 mb-10">
                 <a href="{{ url('/dashboard') }}"
-                    class="h-[50px] flex justify-center items-center rounded-[15px] {{ request()->is('dashboard') ? 'bg-[#95b8a0] text-white font-semibold' : 'bg-white text-black hover:bg-gray-50' }} text-[20px] transition hover:opacity-90">Início</a>
+                    class="h-[50px] flex justify-center items-center rounded-[15px] text-[20px] transition-all duration-200 {{ request()->is('dashboard') ? 'bg-[#098e98] text-white font-semibold' : 'bg-white text-black font-normal hover:bg-[#098e98] hover:text-white hover:font-semibold' }}">Início</a>
 
                 <a href="{{ route('agenda.index') }}"
-                    class="h-[50px] flex justify-center items-center rounded-[15px] {{ request()->is('agenda') ? 'bg-[#95b8a0] text-white font-semibold' : 'bg-white text-black hover:bg-gray-50' }} text-[20px] transition hover:bg-opacity-50">Agenda</a>
+                    class="h-[50px] flex justify-center items-center rounded-[15px] text-[20px] transition-all duration-200 {{ request()->is('agenda') ? 'bg-[#098e98] text-white font-semibold' : 'bg-white text-black font-normal hover:bg-[#098e98] hover:text-white hover:font-semibold' }}">Agenda</a>
 
                 <a href="{{ route('pacientes.index') }}"
-                    class="h-[50px] flex justify-center items-center rounded-[15px] {{ request()->is('pacientes*') ? 'bg-[#95b8a0] text-white font-semibold' : 'bg-white text-black hover:bg-gray-50' }} text-[20px] transition hover:bg-opacity-50">Pacientes</a>
+                    class="h-[50px] flex justify-center items-center rounded-[15px] text-[20px] transition-all duration-200 {{ request()->is('pacientes*') ? 'bg-[#098e98] text-white font-semibold' : 'bg-white text-black font-normal hover:bg-[#098e98] hover:text-white hover:font-semibold' }}">Pacientes</a>
 
                 <a href="#"
-                    class="h-[50px] flex justify-center items-center rounded-[15px] {{ request()->is('profissionais*') ? 'bg-[#95b8a0] text-white font-semibold' : 'bg-white text-black hover:bg-gray-50' }} text-[20px] transition hover:bg-opacity-50">Profissionais</a>
+                    class="h-[50px] flex justify-center items-center rounded-[15px] text-[20px] transition-all duration-200 {{ request()->is('profissionais*') ? 'bg-[#098e98] text-white font-semibold' : 'bg-white text-black font-normal hover:bg-[#098e98] hover:text-white hover:font-semibold' }}">Profissionais</a>
 
                 <a href="#"
-                    class="h-[50px] flex justify-center items-center rounded-[15px] {{ request()->is('configuracoes*') ? 'bg-[#95b8a0] text-white font-semibold' : 'bg-white text-black hover:bg-gray-50' }} text-[20px] transition hover:bg-opacity-50">Configurações</a>
+                    class="h-[50px] flex justify-center items-center rounded-[15px] text-[20px] transition-all duration-200 {{ request()->is('configuracoes*') ? 'bg-[#098e98] text-white font-semibold' : 'bg-white text-black font-normal hover:bg-[#098e98] hover:text-white hover:font-semibold' }}">Configurações</a>
             </nav>
 
             <div class="mt-auto"></div>

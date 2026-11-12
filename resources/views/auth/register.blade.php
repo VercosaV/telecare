@@ -36,7 +36,7 @@
 
                     <!-- Logotipo e Título -->
                     <div class="flex flex-col items-center gap-2">
-                        <img class="h-[90px] w-auto object-contain" src="{{ asset('images/auth/logotipo.png') }}"
+                        <img class="h-[200px] w-auto object-contain" src="{{ asset('images/auth/logotipo.png') }}"
                             alt="Logotipo TeleCare">
                         <h2 class="text-[22px] font-bold text-[#098e98]">Criar Nova Conta</h2>
                     </div>

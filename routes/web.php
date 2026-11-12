@@ -18,6 +18,8 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/agenda', [AgendaController::class, 'index'])->name('agenda.index');
+    Route::get('/agenda/criar', [AgendaController::class, 'create'])->name('agenda.create');
+    
     Route::resource('pacientes', PacienteController::class);
     Route::resource('prontuarios', ProntuarioController::class);
     Route::resource('especialidades', EspecialidadeController::class);

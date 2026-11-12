@@ -3,7 +3,7 @@
 @section('title', 'Dashboard - TeleCare')
 
 @section('content')
-    <!-- CARDS DO TOPO -->
+    <!-- CARDS -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Card 1 -->
         <div class="bg-[#bef0d7] rounded-[15px] border-l-[14px] border-[#81a392] shadow-md p-6 flex flex-col justify-between h-[190px]">
