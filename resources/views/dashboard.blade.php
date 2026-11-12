@@ -15,7 +15,7 @@
                 <img class="w-10 h-10 mt-2" src="{{ asset('images/dash/usuario.svg') }}" alt="Users">
             </div>
             <div class="flex items-center gap-2 mt-auto border-t border-[#81a392]/30 pt-2">
-                <a href="#" class="font-inria text-[22px] text-[#81a392] hover:underline">Acessar Agenda</a>
+                <a href="{{ route('agenda.index') }}" class="font-inria text-[22px] text-[#81a392] hover:underline">Acessar Agenda</a>
                 <img class="w-6 h-6" src="{{ asset('images/dash/seta.svg') }}" alt="Seta">
             </div>
         </div>
@@ -57,7 +57,7 @@
         <div class="bg-white rounded-[15px] shadow-md p-6 lg:flex-[2] flex flex-col">
             <div class="flex justify-between items-center mb-6">
                 <h2 class="font-inria text-[30px] text-black">Agenda do Dia</h2>
-                <a href="#" class="flex items-center gap-1 font-inria text-[18px] text-black hover:underline">
+                <a href="{{ route('agenda.index') }}" class="flex items-center gap-1 font-inria text-[18px] text-black hover:underline">
                     Acessar Agenda
                     <img class="w-4 h-4" src="{{ asset('images/dash/seta.svg') }}" alt="Seta">
                 </a>
