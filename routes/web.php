@@ -5,10 +5,11 @@ use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\ProfController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProntuarioController;
+use App\Http\Controllers\AgendaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
 Route::get('/dashboard', function () {
@@ -16,6 +17,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/agenda', [AgendaController::class, 'index'])->name('agenda.index');
     Route::resource('pacientes', PacienteController::class);
     Route::resource('prontuarios', ProntuarioController::class);
     Route::resource('especialidades', EspecialidadeController::class);

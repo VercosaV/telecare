@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'TeleCare')</title>
 
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
+    
     <!-- Fontes Globais -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,17 +54,17 @@
                 <a href="{{ url('/dashboard') }}"
                     class="h-[50px] flex justify-center items-center rounded-[15px] {{ request()->is('dashboard') ? 'bg-[#95b8a0] text-white font-semibold' : 'bg-white text-black hover:bg-gray-50' }} text-[20px] transition hover:opacity-90">Início</a>
 
-                <a href="#"
-                    class="h-[50px] flex justify-center items-center rounded-[15px] {{ request()->is('agenda*') ? 'bg-[#95b8a0] text-white font-semibold' : 'bg-white text-black hover:bg-gray-50' }} text-[20px] transition hover:bg-gray-50">Agenda</a>
+                <a href="{{ route('agenda.index') }}"
+                    class="h-[50px] flex justify-center items-center rounded-[15px] {{ request()->is('agenda') ? 'bg-[#95b8a0] text-white font-semibold' : 'bg-white text-black hover:bg-gray-50' }} text-[20px] transition hover:bg-opacity-50">Agenda</a>
 
                 <a href="{{ route('pacientes.index') }}"
-                    class="h-[50px] flex justify-center items-center rounded-[15px] {{ request()->is('pacientes*') ? 'bg-[#95b8a0] text-white font-semibold' : 'bg-white text-black hover:bg-gray-50' }} text-[20px] transition hover:bg-gray-50">Pacientes</a>
+                    class="h-[50px] flex justify-center items-center rounded-[15px] {{ request()->is('pacientes*') ? 'bg-[#95b8a0] text-white font-semibold' : 'bg-white text-black hover:bg-gray-50' }} text-[20px] transition hover:bg-opacity-50">Pacientes</a>
 
                 <a href="#"
-                    class="h-[50px] flex justify-center items-center rounded-[15px] {{ request()->is('profissionais*') ? 'bg-[#95b8a0] text-white font-semibold' : 'bg-white text-black hover:bg-gray-50' }} text-[20px] transition hover:bg-gray-50">Profissionais</a>
+                    class="h-[50px] flex justify-center items-center rounded-[15px] {{ request()->is('profissionais*') ? 'bg-[#95b8a0] text-white font-semibold' : 'bg-white text-black hover:bg-gray-50' }} text-[20px] transition hover:bg-opacity-50">Profissionais</a>
 
                 <a href="#"
-                    class="h-[50px] flex justify-center items-center rounded-[15px] {{ request()->is('configuracoes*') ? 'bg-[#95b8a0] text-white font-semibold' : 'bg-white text-black hover:bg-gray-50' }} text-[20px] transition hover:bg-gray-50">Configurações</a>
+                    class="h-[50px] flex justify-center items-center rounded-[15px] {{ request()->is('configuracoes*') ? 'bg-[#95b8a0] text-white font-semibold' : 'bg-white text-black hover:bg-gray-50' }} text-[20px] transition hover:bg-opacity-50">Configurações</a>
             </nav>
 
             <div class="mt-auto"></div>

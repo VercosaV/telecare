@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard Administrador - TeleCare')
+@section('title', 'Dashboard - TeleCare')
 
 @section('content')
     <!-- CARDS DO TOPO -->
