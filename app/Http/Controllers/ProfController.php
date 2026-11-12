@@ -24,7 +24,15 @@ class ProfController extends Controller
 
     public function store(Request $request)
     {
-        $dados = $request->all();
+        $dados = $request->validate([
+            'tipo_profissional' => 'required|in:medico,secretaria',
+            'nome' => 'required|string|max:255',
+            'cpf' => 'required|string|max:20|unique:profissionais,cpf',
+            'telefone' => 'required|string|max:20',
+            'email' => 'required|email|max:255|unique:profissionais,email',
+            'crm' => 'required_unless:tipo_profissional,secretaria|nullable|string|max:20|unique:profissionais,crm',
+            'especialidade_id' => 'required_unless:tipo_profissional,secretaria|nullable|exists:especialidades,id',
+        ]);
 
         if ($dados['tipo_profissional'] === 'secretaria') {
             $dados['crm'] = null;

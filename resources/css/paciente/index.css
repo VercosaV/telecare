@@ -1,0 +1,229 @@
+/* =========================================
+   Apenas os estilos do Conteúdo da Lista de Pacientes
+   ========================================= */
+
+.content-wrapper {
+    max-width: 1000px; /* <--- Isso limita a largura no Pacientes */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Cabeçalho Interno do Conteúdo */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.header-title-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-back {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-back img {
+    width: 30px;
+    height: 30px;
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+    color: black;
+    line-height: 1.2;
+}
+
+.page-subtitle {
+    color: #65758B;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 2px 0 0 0;
+}
+
+.btn-novo {
+    background-color: #95B8A0;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    width: 90px;
+    height: 35px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.btn-novo:hover {
+    background-color: #7a9c84;
+}
+
+/* Lista e Cards de Pacientes */
+.patient-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.patient-card {
+    background: white;
+    border-radius: 12px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+
+    position: relative; 
+    z-index: 1;
+}
+
+.patient-card:hover {
+    transform: translateY(-1px);
+}
+
+.patient-card.elevated {
+    z-index: 999;
+}
+
+.patient-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.patient-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.patient-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 2px 0;
+    color: black;
+    line-height: 1.2;
+}
+
+.patient-meta {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.patient-cpf, .patient-birth {
+    font-size: 13px;
+    color: #65758B;
+    font-weight: 500;
+}
+
+.btn-options {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-options img {
+    width: 24px;
+    height: 24px;
+}
+
+/* =========================================
+   Menu Dropdown de Opções (Editar, Agendar, Excluir)
+   ========================================= */
+
+/* Contêiner relativo para o menu saber onde se posicionar */
+.options-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Oculta o menu por padrão */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 35px; /* Fica logo abaixo dos 3 pontinhos */
+    right: 0;
+    background-color: #ffffff;
+    min-width: 120px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 100;
+    overflow: hidden; /* Mantém as bordas arredondadas nos itens */
+    border: 1px solid #e0e0e0;
+}
+
+/* Classe adicionada via JavaScript para exibir o menu */
+.dropdown-menu.show {
+    display: block;
+}
+
+/* Estilo de cada item do menu */
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 10px 16px;
+    text-align: left;
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-family: inherit;
+    color: #1E1E1E; /* Cor preta para Editar e Agendar */
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border-bottom: 1px solid #f0f0f0; /* Linha divisória */
+}
+
+/* Remove a borda do último item */
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+/* Hover genérico */
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+/* Estilo específico para o item Excluir */
+.dropdown-item.item-delete {
+    color: #FF0000; /* Vermelho como no Figma */
+    font-weight: 500;
+}
+
+.dropdown-item.item-delete:hover {
+    background-color: #ffe6e6;
+}
+
+/* Reset de form para o botão excluir não quebrar o layout */
+.form-delete {
+    margin: 0;
+    padding: 0;
+}

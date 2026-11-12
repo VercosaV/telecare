@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Especialidade;
+use Illuminate\Http\Request;
 
 class EspecialidadeController extends Controller
 {
@@ -13,6 +13,7 @@ class EspecialidadeController extends Controller
     public function index()
     {
         $especialidades = Especialidade::all();
+
         return view('especialidades.index', compact('especialidades'));
     }
 
@@ -29,13 +30,12 @@ class EspecialidadeController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
-        if( Especialidade::create($request->all()))
-            {
-                return redirect()->route('especialidades.index')->with('mensagem', 'Especialidade inserida com sucesso!');
-            } else {
-                return redirect()->route('especialidades.index')->with('mensagem', 'Erro ao inserir a Especialidade!');
-            }
+        // dd($request->all());
+        $dados = $request->validate([
+            'nome' => 'required|string|max:255',
+        ]);
+
+        Especialidade::create($dados);
     }
 
     /**
@@ -44,6 +44,7 @@ class EspecialidadeController extends Controller
     public function show(int $id)
     {
         $especialidades = Especialidade::findOrFail($id);
+
         return view('especialidades.show', compact('especialidades'));
     }
 
@@ -53,6 +54,7 @@ class EspecialidadeController extends Controller
     public function edit(int $id)
     {
         $especialidades = Especialidade::findOrFail($id);
+
         return view('especialidades.edit', compact('especialidades'));
     }
 
@@ -62,11 +64,12 @@ class EspecialidadeController extends Controller
     public function update(Request $request, int $id)
     {
         $especialidades = Especialidade::findOrFail($id);
-        if($especialidades->update($request->all())){
-            return redirect()->route('especialidades.index')->with('mensagem', 'Especialidade alterada com Sucesso!');
-        } else {
-            return redirect()->route('especialidades.index')->with('mensagem', 'Erro ao alterar a Especialidade!');
-        }
+
+        $dados = $request->validate([
+            'nome' => 'required|string|max:255',
+        ]);
+
+        $especialidades->update($dados);
     }
 
     /**
@@ -75,7 +78,7 @@ class EspecialidadeController extends Controller
     public function destroy(int $id)
     {
         $especialidades = Especialidade::findOrFail($id);
-        if($especialidades->delete()) {
+        if ($especialidades->delete()) {
             return redirect()->route('especialidades.index')->with('mensagem', 'Especialidade excluída!');
         } else {
             return redirect()->route('especialidades.index')->with('mensagem', 'Erro ao excluir a Especialidade!');

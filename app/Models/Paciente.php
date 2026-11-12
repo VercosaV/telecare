@@ -11,7 +11,28 @@ class Paciente extends Model
     public $incrementing = true;
 
     protected $fillable = [
-        'nome', 'cpf', 'telefone', 'email'
-        
+        'foto',
+        'nome',
+        'sexo',
+        'data_nascimento',
+        'rg',
+        'cpf',
+        'telefone',
+        'email',
+        'profissao',
+        'cartao_sus',
+        'cep',
+        'cidade',
+        'estado',
+        'logradouro',
+        'bairro',
+        'numero',
+        'complemento',
+        'rascunho',
+    ];
+
+    protected $casts = [
+        'data_nascimento' => 'date',
+        'rascunho' => 'boolean',
     ];
 }

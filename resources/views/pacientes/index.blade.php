@@ -1,48 +1,118 @@
-<!doctype html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Pacientes</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" >
-</head>
-<body> 
- <div class="container py-3"> 
-          @if (session('mensagem'))
-            <p>{{ session('mensagem') }}</p>
-          @endif
-          
-          <h2>Pacientes</h2>
-          <a href="/pacientes/create" class="btn btn-success mb-3">Novo Registro</a>
-          <table class="table table-hover table-striped">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>CPF</th>
-                <th>Telefone</th>
-                <th>Email</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach($pacientes as $p)
-                <tr>
-                    <td>{{ $p->id }}</td>
-                    <td>{{ $p->nome }}</td>
-                    <td>{{ $p->cpf }}</td>
-                    <td>{{ $p->telefone }}</td>
-                    <td>{{ $p->email }}</td>
-                    <td class="d-flex gap-2">
-                        <a href="/pacientes/{{ $p->id }}/edit" class="btn btn-sm btn-warning">Editar</a>
-                        <a href="/pacientes/{{ $p->id }}" class="btn btn-sm btn-info">Consultar</a>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-          </table>
-        
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
-</div>
-</body>
-</html>
+@extends('layouts.app')
+
+@section('title', 'Pacientes - TeleCare')
+
+@push('styles')
+    @vite(['resources/css/paciente/index.css'])
+@endpush
+
+@section('content')
+    <div class="content-wrapper">
+
+        @if (session('mensagem'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('mensagem') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        <!-- Cabeçalho da Página -->
+        <header class="page-header">
+            <div class="header-title-group">
+                <a href="dashboard" class="btn-back">
+                    <img  src="{{ asset('images/paciente/Arrow 1.svg') }}" alt="Voltar">
+                </a>
+                <div>
+                    <h1 class="page-title">Lista de Pacientes</h1>
+                    <p class="page-subtitle">Consulte seus pacientes</p>
+                </div>
+            </div>
+            <a href="{{ route('pacientes.create') }}" class="btn-novo">
+                Novo
+            </a>
+        </header>
+
+      <!-- Lista de Pacientes -->
+        <section class="patient-list">
+            @foreach($pacientes as $p)
+                <article class="patient-card">
+                    {{-- Usa a foto salva no banco se existir, senão usa o avatar padrão --}}
+                    @if($p->foto)
+                        <img src="{{ asset('storage/' . $p->foto) }}" alt="Foto do Paciente" class="patient-avatar">
+                    @else
+                        <img src="{{ asset('images/paciente/acount.png') }}" alt="Foto do Paciente" class="patient-avatar">
+                    @endif
+                    
+                    <div class="patient-info">
+                        <h2 class="patient-name">{{ $p->nome }}</h2>
+                        <div class="patient-meta">
+                            <span class="patient-cpf">CPF: {{ $p->cpf ?? 'Não informado' }}</span>
+                            <span class="patient-birth">Nascimento: {{ $p->data_nascimento?->format('d/m/Y') ?? 'Não informado' }}</span>
+                        </div>  
+                    </div>
+                    
+                    <!-- Contêiner do Botão de Opções e do Menu Suspenso -->
+                    <div class="options-container">
+                        <button class="btn-options" onclick="toggleDropdown({{ $p->id }}, event)">
+                            <img src="{{ asset('images/paciente/More vertical.svg') }}" alt="Opções">
+                        </button>
+
+                        <!-- Menu Dropdown -->
+                        <div id="dropdown-{{ $p->id }}" class="dropdown-menu">
+                            <a href="{{ route('pacientes.edit', $p->id) }}" class="dropdown-item">Editar</a>
+                            <a href="#" class="dropdown-item">Agendar</a> <!-- Rota de agendamento a ser criada -->
+                            <form action="{{ route('pacientes.destroy', $p->id) }}" method="POST" class="form-delete" onsubmit="return confirm('Tem certeza que deseja excluir o paciente {{ $p->nome }}?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="dropdown-item item-delete">Excluir</button>
+                            </form>
+                        </div>
+                    </div>
+                </article>
+            @endforeach
+        </section>
+    </div>
+
+    <!-- Script para controlar o Menu Dropdown -->
+    <script>
+        function toggleDropdown(id, event) {
+            // Impede que o clique no botão feche o menu imediatamente
+            event.stopPropagation();
+            
+            const dropdown = document.getElementById('dropdown-' + id);
+            const isAtivo = dropdown.classList.contains('show');
+            const currentCard = dropdown.closest('.patient-card');
+
+            // Fecha todos os dropdowns abertos na tela
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                menu.classList.remove('show');
+            });
+            
+            // Remove a elevação de todos os cards
+            document.querySelectorAll('.patient-card').forEach(card => {
+                card.classList.remove('elevated');
+            });
+
+            // Se o menu clicado não estava aberto, ele abre agora e joga o card para frente
+            if (!isAtivo) {
+                dropdown.classList.add('show');
+                currentCard.classList.add('elevated');
+            }
+        }
+
+        // Fecha o dropdown ao clicar em qualquer outro lugar da página
+        window.addEventListener('click', function(event) {
+            if (!event.target.closest('.options-container')) {
+                // Remove os menus
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+                
+                // Retorna todos os cards pro nível normal
+                document.querySelectorAll('.patient-card').forEach(card => {
+                    card.classList.remove('elevated');
+                });
+            }
+        });
+    </script>
+@endsection
