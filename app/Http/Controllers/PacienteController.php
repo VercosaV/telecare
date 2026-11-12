@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Paciente;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class PacienteController extends Controller
@@ -31,16 +32,22 @@ class PacienteController extends Controller
      */
     public function store(Request $request)
     {
-        $dados = $request->validate([
-            'nome' => 'required|string|max:255',
-            'cpf' => 'required|digits:11|unique:pacientes,cpf',
-            'telefone' => 'required|string|max:20',
-            'email' => 'required|email|max:255|unique:pacientes,email',
-        ]);
+        $isRascunho = $request->input('action') === 'rascunho';
+
+        $dados = $this->validarPaciente($request, null, $isRascunho);
+        $dados['rascunho'] = $isRascunho;
+
+        if ($request->hasFile('foto')) {
+            $dados['foto'] = $request->file('foto')->store('pacientes', 'public');
+        }
 
         Paciente::create($dados);
 
-        return redirect()->route('pacientes.index')->with('mensagem', 'Paciente criado com sucesso!');
+        $mensagem = $isRascunho
+            ? 'Rascunho do paciente salvo com sucesso!'
+            : 'Paciente criado com sucesso!';
+
+        return redirect()->route('pacientes.index')->with('mensagem', $mensagem);
     }
 
     /**
@@ -69,17 +76,25 @@ class PacienteController extends Controller
     public function update(Request $request, int $id)
     {
         $paciente = Paciente::findOrFail($id);
+        $isRascunho = $request->input('action') === 'rascunho';
 
-        $dados = $request->validate([
-            'nome' => 'required|string|max:255',
-            'cpf' => ['required', 'digits:11', Rule::unique('pacientes', 'cpf')->ignore($paciente->id)],
-            'telefone' => 'required|string|max:20',
-            'email' => ['required', 'email', 'max:255', Rule::unique('pacientes', 'email')->ignore($paciente->id)],
-        ]);
+        $dados = $this->validarPaciente($request, $paciente->id, $isRascunho);
+        $dados['rascunho'] = $isRascunho;
+
+        if ($request->hasFile('foto')) {
+            if ($paciente->foto) {
+                Storage::disk('public')->delete($paciente->foto);
+            }
+            $dados['foto'] = $request->file('foto')->store('pacientes', 'public');
+        }
 
         $paciente->update($dados);
 
-        return redirect()->route('pacientes.index')->with('mensagem', 'Paciente alterado com sucesso!');
+        $mensagem = $isRascunho
+            ? 'Rascunho atualizado com sucesso!'
+            : 'Paciente alterado com sucesso!';
+
+        return redirect()->route('pacientes.index')->with('mensagem', $mensagem);
     }
 
     /**
@@ -87,11 +102,54 @@ class PacienteController extends Controller
      */
     public function destroy(int $id)
     {
-        $pacientes = Paciente::findOrFail($id);
-        if ($pacientes->delete()) {
+        $paciente = Paciente::findOrFail($id);
+        $fotoAntiga = $paciente->foto;
+
+        if ($paciente->delete()) {
+            if ($fotoAntiga) {
+                Storage::disk('public')->delete($fotoAntiga);
+            }
+
             return redirect()->route('pacientes.index')->with('mensagem', 'Paciente excluído!');
-        } else {
-            return redirect()->route('pacientes.index')->with('mensagem', 'Erro ao excluir o Paciente!');
         }
+
+        return redirect()->route('pacientes.index')->with('mensagem', 'Erro ao excluir o Paciente!');
+    }
+
+    /**
+     * Centraliza as regras de validação para store e update.
+     */
+    private function validarPaciente(Request $request, ?int $pacienteId = null, bool $isRascunho = false): array
+    {
+        $obrigatorio = $isRascunho ? 'nullable' : 'required';
+
+        return $request->validate([
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'nome' => 'required|string|max:255',
+            'sexo' => 'nullable|string|max:20',
+            'data_nascimento' => 'nullable|date',
+            'rg' => 'nullable|string|max:30',
+            'cpf' => [
+                $obrigatorio,
+                'digits:11',
+                Rule::unique('pacientes', 'cpf')->ignore($pacienteId),
+            ],
+            'telefone' => [$obrigatorio, 'string', 'max:20'],
+            'email' => [
+                $obrigatorio,
+                'email',
+                'max:255',
+                Rule::unique('pacientes', 'email')->ignore($pacienteId),
+            ],
+            'profissao' => 'nullable|string|max:100',
+            'cartao_sus' => 'nullable|string|max:30',
+            'cep' => 'nullable|string|max:9',
+            'cidade' => 'nullable|string|max:100',
+            'estado' => 'nullable|string|max:2',
+            'logradouro' => 'nullable|string|max:255',
+            'bairro' => 'nullable|string|max:100',
+            'numero' => 'nullable|string|max:20',
+            'complemento' => 'nullable|string|max:100',
+        ]);
     }
 }

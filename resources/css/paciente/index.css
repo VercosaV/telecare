@@ -3,7 +3,7 @@
    ========================================= */
 
 .content-wrapper {
-    max-width: 800px; /* <--- Isso limita a largura no Pacientes */
+    max-width: 1000px; /* <--- Isso limita a largura no Pacientes */
     display: flex;
     flex-direction: column;
 }
@@ -90,10 +90,17 @@
     align-items: center;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
     transition: transform 0.2s;
+
+    position: relative; 
+    z-index: 1;
 }
 
 .patient-card:hover {
     transform: translateY(-1px);
+}
+
+.patient-card.elevated {
+    z-index: 999;
 }
 
 .patient-avatar {
@@ -144,4 +151,79 @@
 .btn-options img {
     width: 24px;
     height: 24px;
+}
+
+/* =========================================
+   Menu Dropdown de Opções (Editar, Agendar, Excluir)
+   ========================================= */
+
+/* Contêiner relativo para o menu saber onde se posicionar */
+.options-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Oculta o menu por padrão */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 35px; /* Fica logo abaixo dos 3 pontinhos */
+    right: 0;
+    background-color: #ffffff;
+    min-width: 120px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    z-index: 100;
+    overflow: hidden; /* Mantém as bordas arredondadas nos itens */
+    border: 1px solid #e0e0e0;
+}
+
+/* Classe adicionada via JavaScript para exibir o menu */
+.dropdown-menu.show {
+    display: block;
+}
+
+/* Estilo de cada item do menu */
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 10px 16px;
+    text-align: left;
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-family: inherit;
+    color: #1E1E1E; /* Cor preta para Editar e Agendar */
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border-bottom: 1px solid #f0f0f0; /* Linha divisória */
+}
+
+/* Remove a borda do último item */
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+/* Hover genérico */
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+/* Estilo específico para o item Excluir */
+.dropdown-item.item-delete {
+    color: #FF0000; /* Vermelho como no Figma */
+    font-weight: 500;
+}
+
+.dropdown-item.item-delete:hover {
+    background-color: #ffe6e6;
+}
+
+/* Reset de form para o botão excluir não quebrar o layout */
+.form-delete {
+    margin: 0;
+    padding: 0;
 }
