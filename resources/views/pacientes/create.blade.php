@@ -1,200 +1,218 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Paciente</title>
-    <!-- Fontes do Google -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inria+Sans:wght@400;700&family=Inter:wght@400;500;600&display=swap"
-        rel="stylesheet">
+@section('title', 'Cadastrar Paciente - TeleCare')
 
+@push('styles')
     @vite(['resources/css/paciente/create.css'])
-</head>
+@endpush
 
-<body>
+@section('content')
+    <div class="content-wrapper">
 
-    <div class="main-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="logo-container">
-                <img class="logo" src="https://placehold.co/215x166" alt="Logo" />
+        @if (session('mensagem'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('mensagem') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
+        @endif
 
-            <nav class="nav-menu">
-                <a href="#" class="nav-item">
-                    <span class="nav-text">Início</span>
-                </a>
-                <a href="#" class="nav-item active">
-                    <span class="nav-text">Agenda</span>
-                </a>
-                <a href="#" class="nav-item">
-                    <span class="nav-text">Pacientes</span>
-                </a>
-                <a href="#" class="nav-item">
-                    <span class="nav-text">Profissionais</span>
-                </a>
-                <a href="#" class="nav-item">
-                    <span class="nav-text">Configurações</span>
-                </a>
-            </nav>
-
-            <div class="sidebar-divider"></div>
-
-            <div class="user-profile">
-                <img class="profile-avatar" src="https://placehold.co/74x74" alt="Foto do Usuário" />
-                <div class="profile-info">
-                    <div class="profile-name">Admin<br />Dr. José Zé de Zezé</div>
-                    <div class="profile-crm">CRM: 707530</div>
-                </div>
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Verifique os campos abaixo:</strong>
+                <ul class="mb-0 mt-1">
+                    @foreach ($errors->all() as $erro)
+                        <li>{{ $erro }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
+        @endif
 
-            <div class="logout-button">
-                <div class="logout-icon-container">
-                    <div class="logout-icon"></div>
-                </div>
-                <span class="logout-text">Sair do Sistema</span>
-            </div>
-        </aside>
-
-        <!-- Header da Página -->
+        <!-- Cabeçalho da Página -->
         <header class="page-header">
-            <div class="header-icon-box"></div>
-            <div class="header-titles">
-                <h1 class="page-title">Editar Paciente</h1>
-                <p class="page-subtitle">Preencha os campos</p>
+            <div class="header-title-group">
+                <a href="{{ route('pacientes.index') }}" class="btn-back" title="Voltar">
+                    <img src="{{ asset('images/paciente/Arrow 1.svg') }}" alt="Voltar">
+                </a>
+                <div>
+                    <h1 class="page-title">Cadastrar Paciente</h1>
+                    <p class="page-subtitle">Preencha os campos</p>
+                </div>
             </div>
         </header>
 
-        <!-- Seção: Dados do Paciente -->
-        <section class="card card-dados-paciente">
-            <h2 class="card-title title-dados-paciente">Dados do Paciente</h2>
+        <form id="pacienteForm" action="{{ route('pacientes.store') }}" method="POST" enctype="multipart/form-data" class="patient-form">
+            @csrf
 
-            <!-- Foto do Paciente -->
-            <div class="photo-upload-container">
-                <img class="photo-preview" src="https://placehold.co/120x120" alt="Foto do Paciente" />
-                <div class="btn-take-photo">
-                    <div class="btn-take-photo-border"></div>
-                    <div class="btn-take-photo-icon"></div>
-                    <span class="btn-take-photo-text">TIRAR FOTO</span>
+            <!-- Seção: Dados do Paciente -->
+            <section class="form-card">
+                <h2 class="card-title">Dados do Paciente</h2>
+
+                <div class="patient-top-section">
+                    <!-- Foto do Paciente -->
+                    <div class="photo-upload-column">
+                        <img id="photoPreview" class="photo-preview" src="{{ asset('images/paciente/acount.png') }}" alt="Foto do Paciente">
+                        <input type="file" id="fotoInput" name="foto" accept="image/*" hidden>
+                        <button type="button" class="btn-take-photo" onclick="document.getElementById('fotoInput').click()">
+                            <svg width="12" height="10" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 1L3.8 2.5H1.5C0.95 2.5 0.5 2.95 0.5 3.5V10.5C0.5 11.05 0.95 11.5 1.5 11.5H12.5C13.05 11.5 13.5 11.05 13.5 10.5V3.5C13.5 2.95 13.05 2.5 12.5 2.5H10.2L9 1H5ZM7 9.5C5.62 9.5 4.5 8.38 4.5 7C4.5 5.62 5.62 4.5 7 4.5C8.38 4.5 9.5 5.62 9.5 7C9.5 8.38 8.38 9.5 7 9.5Z" stroke="#FF0000" stroke-width="1"/>
+                            </svg>
+                            TIRAR FOTO
+                        </button>
+                    </div>
+
+                    <!-- Campos: Nome, Sexo e Data de Nascimento -->
+                    <div class="patient-top-fields">
+                        <div class="form-group">
+                            <label for="nome" class="field-label">Nome *</label>
+                            <input type="text" id="nome" name="nome" class="form-control @error('nome') is-invalid @enderror" placeholder="Digite o nome do paciente" value="{{ old('nome') }}" required>
+                        </div>
+
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label for="sexo" class="field-label">Sexo</label>
+                                <select id="sexo" name="sexo" class="form-control">
+                                    <option value="" disabled selected>Selecione o sexo do paciente</option>
+                                    <option value="Masculino" {{ old('sexo') == 'Masculino' ? 'selected' : '' }}>Masculino</option>
+                                    <option value="Feminino" {{ old('sexo') == 'Feminino' ? 'selected' : '' }}>Feminino</option>
+                                    <option value="Outro" {{ old('sexo') == 'Outro' ? 'selected' : '' }}>Outro</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="data_nascimento" class="field-label">Data de Nascimento</label>
+                                <input type="text" id="data_nascimento" name="data_nascimento" class="form-control" placeholder="Selecione a data de nasc." onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" value="{{ old('data_nascimento') }}">
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Campos: Nome, Nascimento, Sexo -->
-            <div class="field-label label-nome">Nome</div>
-            <div class="input-box input-nome">
-                <div class="input-text">Paciente Teste</div>
-            </div>
+                <!-- Campos: RG, CPF, Telefone, Email, Profissão, Cartão SUS -->
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label for="rg" class="field-label">RG</label>
+                        <input type="text" id="rg" name="rg" class="form-control" placeholder="Digite o RG do paciente" value="{{ old('rg') }}">
+                    </div>
 
-            <div class="field-label label-nascimento">Data de Nascimento</div>
-            <div class="input-box input-nascimento">
-                <div class="input-text">15/04/1990</div>
-            </div>
+                    <div class="form-group">
+                        <label for="cpf" class="field-label">CPF *</label>
+                        <input type="text" id="cpf" name="cpf" class="form-control @error('cpf') is-invalid @enderror" placeholder="Somente números (11 dígitos)" maxlength="11" inputmode="numeric" value="{{ old('cpf') }}" required>
+                    </div>
 
-            <div class="field-label label-sexo">Sexo</div>
-            <div class="input-box input-sexo">
-                <div class="input-text">Masculino</div>
-            </div>
+                    <div class="form-group">
+                        <label for="telefone" class="field-label">Telefone *</label>
+                        <div class="phone-input-group">
+                            <input type="text" id="ddd" name="ddd" class="form-control input-ddd" placeholder="DDD" maxlength="2" inputmode="numeric" value="{{ old('ddd') }}">
+                            <input type="text" id="telefone" name="telefone" class="form-control input-phone @error('telefone') is-invalid @enderror" placeholder="Digite o telefone do paciente" maxlength="15" value="{{ old('telefone') }}" required>
+                        </div>
+                    </div>
 
-            <!-- Campos: RG, CPF -->
-            <div class="field-label label-rg">RG</div>
-            <div class="input-box input-rg">
-                <div class="input-text">12.345.678-9 / SP</div>
-            </div>
+                    <div class="form-group">
+                        <label for="email" class="field-label">Email *</label>
+                        <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Digite o e-mail do paciente" value="{{ old('email') }}" required>
+                    </div>
 
-            <div class="field-label label-cpf">CPF</div>
-            <div class="input-box input-cpf">
-                <div class="input-text">999.999.999-99</div>
-            </div>
+                    <div class="form-group">
+                        <label for="profissao" class="field-label">Profissão</label>
+                        <input type="text" id="profissao" name="profissao" class="form-control" placeholder="Digite a profissão do paciente" value="{{ old('profissao') }}">
+                    </div>
 
-            <!-- Campos: Telefone, Email -->
-            <div class="field-label label-telefone">Telefone</div>
-            <div class="input-box input-ddd">
-                <div class="input-text text-center">(11)</div>
-            </div>
-            <div class="input-box input-telefone">
-                <div class="input-text">99770-7070</div>
-            </div>
+                    <div class="form-group">
+                        <label for="cartao_sus" class="field-label">Cartão SUS</label>
+                        <input type="text" id="cartao_sus" name="cartao_sus" class="form-control" placeholder="Digite o Cartão SUS do paciente" value="{{ old('cartao_sus') }}">
+                    </div>
+                </div>
+            </section>
 
-            <div class="field-label label-email">Email</div>
-            <div class="input-box input-email">
-                <div class="input-text">carlin.noisehnois@gmail.com</div>
-            </div>
+            <!-- Seção: Endereço do Paciente -->
+            <section class="form-card">
+                <h2 class="card-title">Endereço do Paciente</h2>
 
-            <!-- Campos: Profissão, Cartão SUS -->
-            <div class="field-label label-profissao">Profissão</div>
-            <div class="input-box input-profissao">
-                <div class="input-text">Professor</div>
-            </div>
+                <div class="address-row-top">
+                    <div class="form-group">
+                        <label for="cep" class="field-label">CEP</label>
+                        <input type="text" id="cep" name="cep" class="form-control" placeholder="Digite o CEP" value="{{ old('cep') }}">
+                    </div>
 
-            <div class="field-label label-sus">Cartão SUS</div>
-            <div class="input-box input-sus">
-                <div class="input-text placeholder-text">Digite o Cartão SUS do paciente</div>
-            </div>
-        </section>
+                    <div class="form-group">
+                        <label for="cidade" class="field-label">Cidade</label>
+                        <input type="text" id="cidade" name="cidade" class="form-control" placeholder="Digite a cidade" value="{{ old('cidade') }}">
+                    </div>
 
-        <!-- Seção: Endereço do Paciente -->
-        <section class="card card-endereco-paciente">
-            <h2 class="card-title title-endereco">Endereço do Paciente</h2>
+                    <div class="form-group">
+                        <label for="estado" class="field-label">Estado</label>
+                        <input type="text" id="estado" name="estado" class="form-control text-center" maxlength="2" placeholder="UF" value="{{ old('estado') }}">
+                    </div>
+                </div>
 
-            <!-- CEP, Cidade, Estado -->
-            <div class="field-label label-cep">CEP</div>
-            <div class="input-box input-cep">
-                <div class="input-text">19000-999</div>
-            </div>
+                <div class="address-row-middle">
+                    <div class="form-group">
+                        <label for="logradouro" class="field-label">Logradouro</label>
+                        <input type="text" id="logradouro" name="logradouro" class="form-control" placeholder="Digite a rua" value="{{ old('logradouro') }}">
+                    </div>
+                </div>
 
-            <div class="field-label label-cidade">Cidade</div>
-            <div class="input-box input-cidade">
-                <div class="input-text">Pres. Prudente</div>
-            </div>
+                <div class="address-row-bottom">
+                    <div class="form-group">
+                        <label for="bairro" class="field-label">Bairro</label>
+                        <input type="text" id="bairro" name="bairro" class="form-control" placeholder="Digite o bairro" value="{{ old('bairro') }}">
+                    </div>
 
-            <div class="field-label label-estado">Estado</div>
-            <div class="input-box input-estado">
-                <div class="input-text">SP</div>
-            </div>
+                    <div class="form-group">
+                        <label for="numero" class="field-label">Número</label>
+                        <input type="text" id="numero" name="numero" class="form-control text-center" value="{{ old('numero') }}">
+                    </div>
 
-            <!-- Logradouro -->
-            <div class="field-label label-logradouro">Logradouro</div>
-            <div class="input-box input-logradouro">
-                <div class="input-text">Rua dos Alfeneiros</div>
-            </div>
+                    <div class="form-group">
+                        <label for="complemento" class="field-label">Complemento</label>
+                        <input type="text" id="complemento" name="complemento" class="form-control" placeholder="Ex: Casa, Apto" value="{{ old('complemento') }}">
+                    </div>
+                </div>
+            </section>
 
-            <!-- Bairro, Número, Complemento -->
-            <div class="field-label label-bairro">Bairro</div>
-            <div class="input-box input-bairro">
-                <div class="input-text">Surrey</div>
-            </div>
+            <!-- Rodapé / Ações -->
+            <footer class="card-actions">
+                <a href="{{ route('pacientes.index') }}" class="btn-action btn-voltar">
+                    VOLTAR
+                </a>
 
-            <div class="field-label label-numero">Número</div>
-            <div class="input-box input-numero">
-                <div class="input-text">4</div>
-            </div>
+                <button type="submit" name="action" value="rascunho" class="btn-action btn-rascunho">
+                    SALVAR RASCUNHO
+                </button>
 
-            <div class="field-label label-complemento">Complemento</div>
-            <div class="input-box input-complemento">
-                <div class="input-text placeholder-text">Ex: Casa, Apto</div>
-            </div>
-        </section>
-
-        <!-- Rodapé / Ações -->
-        <footer class="card card-actions">
-            <button class="btn btn-voltar">
-                <span class="btn-text">VOLTAR</span>
-            </button>
-
-            <button class="btn btn-rascunho">
-                <span class="btn-text">SALVAR RASCUNHO</span>
-            </button>
-
-            <button class="btn btn-salvar">
-                <span class="btn-text">SALVAR</span>
-            </button>
-        </footer>
+                <button type="submit" name="action" value="salvar" class="btn-action btn-salvar">
+                    SALVAR
+                </button>
+            </footer>
+        </form>
     </div>
 
-</body>
+    <script>
+        // Preview da foto
+        document.getElementById('fotoInput').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('photoPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
 
-</html>
+        // Garante que o CPF tenha apenas números (regra digits:11 do Controller)
+        const cpfInput = document.getElementById('cpf');
+        cpfInput.addEventListener('input', function () {
+            this.value = this.value.replace(/\D/g, '').slice(0, 11);
+        });
+
+        // Junta DDD + Telefone antes de enviar para o Controller (campo único 'telefone')
+        document.getElementById('pacienteForm').addEventListener('submit', function () {
+            const ddd = document.getElementById('ddd').value.replace(/\D/g, '');
+            const telInput = document.getElementById('telefone');
+            if (ddd && !telInput.value.startsWith('(')) {
+                telInput.value = `(${ddd}) ${telInput.value}`.slice(0, 20);
+            }
+        });
+    </script>
+@endsection

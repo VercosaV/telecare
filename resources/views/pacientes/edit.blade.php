@@ -1,42 +1,245 @@
-<!doctype html>
-<html lang="pt-BR">
+@extends('layouts.app')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Paciente</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+@section('title', 'Editar Paciente - TeleCare')
 
-<body>
-    <div class="container py-3">
-        <h1>Editar Paciente</h1>
-        <form method="post" action='/pacientes/{{ $pacientes->id }}'>
-            @CSRF
+@push('styles')
+    <!-- Reutilizamos o CSS do create, pois a estrutura visual é idêntica -->
+    @vite(['resources/css/paciente/create.css'])
+@endpush
+
+@section('content')
+    <div class="content-wrapper">
+
+        @if (session('mensagem'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('mensagem') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Verifique os campos abaixo:</strong>
+                <ul class="mb-0 mt-1">
+                    @foreach ($errors->all() as $erro)
+                        <li>{{ $erro }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+
+        <!-- Cabeçalho da Página -->
+        <header class="page-header">
+            <div class="header-title-group">
+                <a href="{{ route('pacientes.index') }}" class="btn-back" title="Voltar">
+                    <img src="{{ asset('images/paciente/Arrow 1.svg') }}" alt="Voltar">
+                </a>
+                <div>
+                    <h1 class="page-title">Editar Paciente</h1>
+                    <p class="page-subtitle">Preencha os campos</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Formulário de Edição (Atenção ao @method('PUT')) -->
+        <form id="pacienteForm" action="{{ route('pacientes.update', $pacientes->id) }}" method="POST" enctype="multipart/form-data" class="patient-form">
+            @csrf
             @method('PUT')
-            <div class="mb-3">
-                <label for="nome" class="form-label">Informe o nome do Paciente</label>
-                <input type="text" id="nome" name="nome" class="form-control" required="">
-            </div>
-            <div class="mb-3">
-                <label for="cpf" class="form-label">Informe o CPF do Paciente</label>
-                <input type="text" id="cpf" name="cpf" class="form-control" required="">
-            </div>
-            <div class="mb-3">
-                <label for="telefone" class="form-label">Informe o Telefone do Paciente</label>
-                <input type="text" id="telefone" name="telefone" class="form-control" required="">
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Informe o Email do Paciente</label>
-                <input type="email" id="email" name="email" class="form-control" required="">
-            </div>
-            <a href="/pacientes" class="btn btn-secondary">Voltar</a>
-            <button type="submit" class="btn btn-primary">Enviar</button>
-        </form>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous">
-        </script>
-    </div>
-</body>
 
-</html>
+            <!-- Seção: Dados do Paciente -->
+            <section class="form-card">
+                <h2 class="card-title">Dados do Paciente</h2>
+
+                <div class="patient-top-section">
+                    <!-- Foto do Paciente -->
+                    <div class="photo-upload-column">
+                        <img id="photoPreview" class="photo-preview" 
+                             src="{{ $pacientes->foto ? asset('storage/' . $pacientes->foto) : asset('images/paciente/acount.png') }}" 
+                             alt="Foto do Paciente">
+                        <input type="file" id="fotoInput" name="foto" accept="image/*" hidden>
+                        <button type="button" class="btn-take-photo" onclick="document.getElementById('fotoInput').click()">
+                            <svg width="12" height="10" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 1L3.8 2.5H1.5C0.95 2.5 0.5 2.95 0.5 3.5V10.5C0.5 11.05 0.95 11.5 1.5 11.5H12.5C13.05 11.5 13.5 11.05 13.5 10.5V3.5C13.5 2.95 13.05 2.5 12.5 2.5H10.2L9 1H5ZM7 9.5C5.62 9.5 4.5 8.38 4.5 7C4.5 5.62 5.62 4.5 7 4.5C8.38 4.5 9.5 5.62 9.5 7C9.5 8.38 8.38 9.5 7 9.5Z" stroke="#FF0000" stroke-width="1"/>
+                            </svg>
+                            TIRAR FOTO
+                        </button>
+                    </div>
+
+                    <!-- Campos: Nome, Sexo e Data de Nascimento -->
+                    <div class="patient-top-fields">
+                        <div class="form-group">
+                            <label for="nome" class="field-label">Nome *</label>
+                            <input type="text" id="nome" name="nome" class="form-control @error('nome') is-invalid @enderror" placeholder="Digite o nome do paciente" value="{{ old('nome', $pacientes->nome) }}" required>
+                        </div>
+
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label for="sexo" class="field-label">Sexo</label>
+                                <select id="sexo" name="sexo" class="form-control">
+                                    <option value="" disabled {{ !$pacientes->sexo ? 'selected' : '' }}>Selecione o sexo do paciente</option>
+                                    <option value="Masculino" {{ old('sexo', $pacientes->sexo) == 'Masculino' ? 'selected' : '' }}>Masculino</option>
+                                    <option value="Feminino" {{ old('sexo', $pacientes->sexo) == 'Feminino' ? 'selected' : '' }}>Feminino</option>
+                                    <option value="Outro" {{ old('sexo', $pacientes->sexo) == 'Outro' ? 'selected' : '' }}>Outro</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="data_nascimento" class="field-label">Data de Nascimento</label>
+                                <!-- Para o input do tipo date funcionar corretamente no HTML, o value precisa estar no formato Y-m-d -->
+                                <input type="date" id="data_nascimento" name="data_nascimento" class="form-control" 
+                                       value="{{ old('data_nascimento', $pacientes->data_nascimento ? $pacientes->data_nascimento->format('Y-m-d') : '') }}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Campos: RG, CPF, Telefone, Email, Profissão, Cartão SUS -->
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label for="rg" class="field-label">RG</label>
+                        <input type="text" id="rg" name="rg" class="form-control" placeholder="Digite o RG do paciente" value="{{ old('rg', $pacientes->rg) }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cpf" class="field-label">CPF *</label>
+                        <input type="text" id="cpf" name="cpf" class="form-control @error('cpf') is-invalid @enderror" placeholder="Somente números (11 dígitos)" maxlength="11" inputmode="numeric" value="{{ old('cpf', $pacientes->cpf) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefone" class="field-label">Telefone *</label>
+                        
+                        <!-- Bloco PHP para separar DDD do Telefone que vem salvo junto do banco -->
+                        @php
+                            $oldDdd = old('ddd');
+                            $oldTel = old('telefone');
+                            
+                            // Se não houver erro de validação anterior e o paciente tiver telefone cadastrado
+                            if (!$oldDdd && !$oldTel && $pacientes->telefone) {
+                                // Tenta extrair usando regex caso esteja salvo como (XX) XXXXX-XXXX
+                                if (preg_match('/^\((\d{2})\)\s*(.+)$/', $pacientes->telefone, $matches)) {
+                                    $oldDdd = $matches[1];
+                                    $oldTel = $matches[2];
+                                } else {
+                                    $oldTel = $pacientes->telefone; // Fallback se estiver salvo fora do padrão
+                                }
+                            }
+                        @endphp
+
+                        <div class="phone-input-group">
+                            <input type="text" id="ddd" name="ddd" class="form-control input-ddd" placeholder="DDD" maxlength="2" inputmode="numeric" value="{{ $oldDdd }}">
+                            <input type="text" id="telefone" name="telefone" class="form-control input-phone @error('telefone') is-invalid @enderror" placeholder="Digite o telefone do paciente" maxlength="15" value="{{ $oldTel }}" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="field-label">Email *</label>
+                        <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Digite o e-mail do paciente" value="{{ old('email', $pacientes->email) }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="profissao" class="field-label">Profissão</label>
+                        <input type="text" id="profissao" name="profissao" class="form-control" placeholder="Digite a profissão do paciente" value="{{ old('profissao', $pacientes->profissao) }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cartao_sus" class="field-label">Cartão SUS</label>
+                        <input type="text" id="cartao_sus" name="cartao_sus" class="form-control" placeholder="Digite o Cartão SUS do paciente" value="{{ old('cartao_sus', $pacientes->cartao_sus) }}">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção: Endereço do Paciente -->
+            <section class="form-card">
+                <h2 class="card-title">Endereço do Paciente</h2>
+
+                <div class="address-row-top">
+                    <div class="form-group">
+                        <label for="cep" class="field-label">CEP</label>
+                        <input type="text" id="cep" name="cep" class="form-control" placeholder="Digite o CEP" value="{{ old('cep', $pacientes->cep) }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cidade" class="field-label">Cidade</label>
+                        <input type="text" id="cidade" name="cidade" class="form-control" placeholder="Digite a cidade" value="{{ old('cidade', $pacientes->cidade) }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="estado" class="field-label">Estado</label>
+                        <input type="text" id="estado" name="estado" class="form-control text-center" maxlength="2" placeholder="UF" value="{{ old('estado', $pacientes->estado) }}">
+                    </div>
+                </div>
+
+                <div class="address-row-middle">
+                    <div class="form-group">
+                        <label for="logradouro" class="field-label">Logradouro</label>
+                        <input type="text" id="logradouro" name="logradouro" class="form-control" placeholder="Digite a rua" value="{{ old('logradouro', $pacientes->logradouro) }}">
+                    </div>
+                </div>
+
+                <div class="address-row-bottom">
+                    <div class="form-group">
+                        <label for="bairro" class="field-label">Bairro</label>
+                        <input type="text" id="bairro" name="bairro" class="form-control" placeholder="Digite o bairro" value="{{ old('bairro', $pacientes->bairro) }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="numero" class="field-label">Número</label>
+                        <input type="text" id="numero" name="numero" class="form-control text-center" value="{{ old('numero', $pacientes->numero) }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="complemento" class="field-label">Complemento</label>
+                        <input type="text" id="complemento" name="complemento" class="form-control" placeholder="Ex: Casa, Apto" value="{{ old('complemento', $pacientes->complemento) }}">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Rodapé / Ações -->
+            <footer class="card-actions">
+                <a href="{{ route('pacientes.index') }}" class="btn-action btn-voltar">
+                    VOLTAR
+                </a>
+
+                <button type="submit" name="action" value="rascunho" class="btn-action btn-rascunho">
+                    SALVAR RASCUNHO
+                </button>
+
+                <button type="submit" name="action" value="salvar" class="btn-action btn-salvar">
+                    SALVAR
+                </button>
+            </footer>
+        </form>
+    </div>
+
+    <script>
+        // Preview da foto na edição
+        document.getElementById('fotoInput').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('photoPreview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Garante que o CPF tenha apenas números para o update
+        const cpfInput = document.getElementById('cpf');
+        cpfInput.addEventListener('input', function () {
+            this.value = this.value.replace(/\D/g, '').slice(0, 11);
+        });
+
+        // Junta DDD + Telefone antes de enviar (mesma lógica do create)
+        document.getElementById('pacienteForm').addEventListener('submit', function () {
+            const ddd = document.getElementById('ddd').value.replace(/\D/g, '');
+            const telInput = document.getElementById('telefone');
+            
+            // Junta apenas se o usuário preencheu o DDD e o telefone ainda não foi formatado com '('
+            if (ddd && !telInput.value.startsWith('(')) {
+                telInput.value = `(${ddd}) ${telInput.value}`.slice(0, 20);
+            }
+        });
+    </script>
+@endsection

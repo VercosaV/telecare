@@ -100,7 +100,11 @@
                         <button type="submit" class="w-full h-[45px] mt-4 rounded-full bg-[#95b8a0] hover:bg-[#7a9984] transition-colors flex justify-center items-center shadow-sm">
                             <span class="text-[20px] font-bold text-white">ENTRAR</span>
                         </button>
+                        
                     </form>
+                    <button type="submit" class="w-full h-[45px] mt-4 rounded-full bg-[#95b8a0] hover:bg-[#7a9984] transition-colors flex justify-center items-center shadow-sm">
+                            <a href="register" class="text-[20px] font-bold text-white">Criar conta</a>
+                    </button>
                 </div>
             </div>
         </div>

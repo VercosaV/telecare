@@ -62,7 +62,8 @@
                                     src="{{ asset('images/auth/people.svg') }}" alt="Ícone Pessoa">
                                 <input
                                     class="w-full h-10 pl-10 pr-3.5 py-2 rounded-lg border border-gray-300 bg-white text-gray-500 placeholder-gray-400 focus:outline-none focus:border-[#098e98] focus:ring-1 focus:ring-[#098e98]"
-                                    type="text" name="name" value="{{ old('name') }}" placeholder="Digite seu Nome Completo" required autofocus>
+                                    type="text" name="name" value="{{ old('name') }}"
+                                    placeholder="Digite seu Nome Completo" required autofocus>
                             </div>
                         </div>
 
@@ -74,7 +75,8 @@
                                     src="{{ asset('images/auth/people.svg') }}" alt="Ícone Email">
                                 <input
                                     class="w-full h-10 pl-10 pr-3.5 py-2 rounded-lg border border-gray-300 bg-white text-gray-500 placeholder-gray-400 focus:outline-none focus:border-[#098e98] focus:ring-1 focus:ring-[#098e98]"
-                                    type="email" name="email" value="{{ old('email') }}" placeholder="Digite seu email" required>
+                                    type="email" name="email" value="{{ old('email') }}"
+                                    placeholder="Digite seu email" required>
                             </div>
                         </div>
 
@@ -100,7 +102,8 @@
                                     src="{{ asset('images/auth/cadeado.svg') }}" alt="Ícone Cadeado">
                                 <input
                                     class="w-full h-10 pl-10 pr-10 py-2 rounded-lg border border-gray-300 bg-white text-gray-500 placeholder-gray-400 focus:outline-none focus:border-[#098e98] focus:ring-1 focus:ring-[#098e98]"
-                                    type="password" name="password_confirmation" placeholder="Digite sua senha" required>
+                                    type="password" name="password_confirmation" placeholder="Digite sua senha"
+                                    required>
                                 <img class="absolute right-3 w-5 h-5 cursor-pointer opacity-50 hover:opacity-100 transition-opacity"
                                     src="{{ asset('images/auth/olhocego.svg') }}" alt="Ocultar Senha">
                             </div>
@@ -112,6 +115,10 @@
                             <span class="text-[18px] font-bold text-white">CRIAR CONTA</span>
                         </button>
                     </form>
+                    <button type="submit"
+                        class="w-full h-[45px] mt-2 rounded-full bg-[#098e98] hover:bg-[#066a72] transition-colors flex justify-center items-center">
+                        <a href="login" class="text-[18px] font-bold text-white">Entrar</a>
+                    </button>
                 </div>
             </div>
         </div>
