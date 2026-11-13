@@ -1,0 +1,173 @@
+/* =========================================
+   Estilos do Cadastro / Edição de Profissionais
+   ========================================= */
+
+.content-wrapper {
+    max-width: 1000px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.header-title-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-back {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.btn-back img {
+    width: 30px;
+    height: 30px;
+}
+
+.page-title {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+    color: black;
+    line-height: 1.2;
+}
+
+.page-subtitle {
+    color: #65758B;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 2px 0 0 0;
+}
+
+/* =========================================================
+   Estilos Específicos do Profissional (Radios, Select e Rodapé)
+   ========================================================= */
+.type-selector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.type-btn {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    border: 2px solid #E2E8F0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    color: #64748B;
+    transition: all 0.2s;
+    background: #F8FAFC;
+}
+
+.type-selector input[type="radio"] {
+    display: none;
+}
+
+.type-selector input[type="radio"]:checked+.type-btn {
+    border-color: #8BA88E;
+    background-color: #eef4ef;
+    color: #4a634d;
+}
+
+.custom-input-group {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    gap: 15px;
+}
+
+.custom-input-group select {
+    flex-grow: 1;
+    border-radius: 8px !important;
+}
+
+.custom-input-group .btn-nova {
+    border-radius: 8px !important;
+    background-color: #8BA88E;
+    border-color: #8BA88E;
+    color: white;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.custom-input-group .btn-nova:hover {
+    background-color: #7a947d;
+}
+
+.btn-action-save {
+    background-color: #8BA88E;
+    border-color: #8BA88E;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    border: none;
+    font-size: 1rem;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-action-save:hover {
+    background-color: #7a947d;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-action-cancel {
+    background-color: #f8f9fa;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    font-weight: 500;
+    color: #6c757d;
+    padding: 12px;
+    transition: all 0.2s;
+    text-decoration: none;
+    font-size: 1rem;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-action-cancel:hover {
+    background-color: #e2e6ea;
+    color: #495057;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .custom-input-group {
+        flex-direction: column;
+    }
+    
+    .btn-action-save, .btn-action-cancel {
+        width: 100%;
+    }
+}
