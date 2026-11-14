@@ -2,41 +2,46 @@
 
 @section('title', 'Agenda - TeleCare')
 
-
 @section('content')
 <!-- organizar cards com painel lateral -->
 <div class="p-10 w-full min-h-screen bg-[#eef7ff] flex flex-wrap gap-16 items-start justify-center xl:justify-start">
     
     <!-- Coluna Esquerda -->
-    <div class="flex flex-col gap-[72px]">
+    <div class="flex flex-col gap-[30px]">
         
         <!-- Calendário -->
-        <div class="relative w-[490px] h-[605px] rounded-[20px] overflow-hidden bg-[#ffffff] shadow-[0_4px_4px_0_rgba(0,_0,_0,_0.25)] shrink-0">
+        <div class="relative w-[580px] h-[650px] rounded-[20px] overflow-hidden bg-[#ffffff] shadow-[0_4px_4px_0_rgba(0,_0,_0,_0.25)] shrink-0">
             
-            <p class="absolute left-12 top-[43px] w-[284px] h-[85px] font-['Inter',_sans-serif] text-[length:48px] font-semibold leading-[48px] text-[#000000] flex flex-col justify-center capitalize">
-                <span>{{ $primeiroDiaDoMes->translatedFormat('F Y') }}</span>
-            </p>
-            
-            <a href="{{ route('agenda.index', ['mes' => $mesAnterior->month, 'ano' => $mesAnterior->year]) }}" class="absolute left-[370px] top-[110px] w-[35px] h-[35px] z-10 hover:opacity-70 transition">
-                <img class="w-full h-full" src="{{ asset('images/dash/setaesquerda.png') }}" alt="Mês anterior">
-            </a>
-            
-            <a href="{{ route('agenda.index', ['mes' => $mesSeguinte->month, 'ano' => $mesSeguinte->year]) }}" class="absolute left-[410px] top-[110px] w-[35px] h-[35px] z-10 hover:opacity-70 transition">
-                <img class="w-full h-full" src="{{ asset('images/dash/setadireita.png') }}" alt="Próximo mês">
-            </a>
-            <!-- botao hoje -->
-            <div class="absolute left-[360px] top-[50px] w-[90px] h-[35px] hover:opacity-80 transition">
-                <div class="absolute left-0 top-0 w-[90px] h-[35px] rounded-[15px] bg-[#098e98]"></div>
-                <a href="{{ route('agenda.index') }}" class="absolute left-0 top-0 w-[90px] h-[35px] font-['Inter',_sans-serif] text-[length:20px] font-medium leading-[20px] text-[#ffffff] text-center flex flex-col justify-center">Hoje</a>
+            <!-- Título do Mês e Ano -->
+            <div class="absolute left-[65px] top-[40px] font-['Inter',_sans-serif] text-[#000000] flex flex-col capitalize">
+                <span class="text-[40px] font-normal leading-[40px] text-[#262626]">{{ $primeiroDiaDoMes->translatedFormat('F') }}</span>
+                <span class="text-[48px] font-black leading-[48px]">{{ $primeiroDiaDoMes->format('Y') }}</span>
             </div>
-            <div class="absolute left-[27px] top-[180px] w-[436px] grid grid-cols-7 gap-x-2">
+            
+            <!-- Botão Hoje -->
+            <a href="{{ route('agenda.index') }}" class="absolute right-[70px] top-[40px] w-[90px] h-[35px] rounded-[15px] bg-[#098e98] hover:opacity-80 transition flex items-center justify-center font-['Inter',_sans-serif] text-[20px] font-medium text-[#ffffff]">
+                Hoje
+            </a>
+
+            <!-- Setas de Navegação -->
+            <div class="absolute right-[70px] top-[94px] flex gap-4 z-10">
+                <a href="{{ route('agenda.index', ['mes' => $mesAnterior->month, 'ano' => $mesAnterior->year]) }}" class="w-[35px] h-[35px] hover:opacity-70 transition">
+                    <img class="w-full h-full" src="{{ asset('images/dash/setaesquerda.png') }}" alt="Mês anterior">
+                </a>
+                <a href="{{ route('agenda.index', ['mes' => $mesSeguinte->month, 'ano' => $mesSeguinte->year]) }}" class="w-[35px] h-[35px] hover:opacity-70 transition">
+                    <img class="w-full h-full" src="{{ asset('images/dash/setadireita.png') }}" alt="Próximo mês">
+                </a>
+            </div>
+
+            <!-- Cabeçalho dos Dias da Semana -->
+            <div class="absolute left-[50px] right-[50px] top-[170px] grid grid-cols-7 gap-x-2">
                 @foreach(['D', 'S', 'T', 'Q', 'Q', 'S', 'S'] as $diaSemana)
-                    <p class="font-['Inter',_sans-serif] text-[22px] font-extrabold leading-[20px] text-[#000000] text-center">{{ $diaSemana }}</p>
+                    <p class="font-['Inter',_sans-serif] text-[24px] font-extrabold text-[#000000] text-center">{{ $diaSemana }}</p>
                 @endforeach
             </div>
 
             <!-- Grid Dinâmico dos Números do Calendário -->
-            <div class="absolute left-[27px] top-[220px] w-[436px] grid grid-cols-7 gap-y-3 gap-x-2">
+            <div class="absolute left-[50px] right-[50px] top-[230px] grid grid-cols-7 gap-y-3 gap-x-2 justify-items-center">
                 
                 <!-- Espaços em branco antes do dia 1 -->
                 @for ($i = 0; $i < $primeiroDiaSemana; $i++)
@@ -63,40 +68,64 @@
         </div>
 
         <!-- Próximo Atendimento -->
-        <div class="relative w-[490px] h-[114px] rounded-[20px] overflow-hidden bg-[#ffffff] shadow-[0_4px_4px_0_rgba(0,_0,_0,_0.25)] shrink-0">
-            <img class="absolute left-3.5 top-[45px] w-[55px] h-[55px] object-cover rounded-full" src="{{ asset('images/dash/unnamed1.png') }}" alt="unnamed 1">
-            <p class="absolute left-3.5 top-0 w-[468px] h-[45px] font-['Inria_Sans',_sans-serif] text-[length:24px] font-normal leading-[31px] text-[#000000] flex flex-col justify-center"><span>PRÓXIMO ATENDIMENTO</span></p>
-            <p class="absolute left-[83px] top-[45px] w-[196px] h-[25px] font-['Inria_Sans',_sans-serif] text-[length:22px] font-bold leading-[22px] tracking-[0] text-[#000000] flex flex-col justify-center"><span>Ingrid Bonfim</span></p>
-            <p class="absolute left-[330px] top-[39px] w-32 h-[25px] font-['Inria_Sans',_sans-serif] text-[length:18px] font-normal leading-[18px] tracking-[0] text-[#000000] text-center flex flex-col justify-center"><span>12:00 - 12:45</span></p>
-            <div class="absolute left-[316px] top-[68px] w-[155px] h-[30px] rounded-[100px] bg-[#0b9095]"></div>
-            <a class="absolute left-[316px] top-[68px] w-[155px] h-[30px] font-['Inria_Sans',_sans-serif] text-[length:15px] font-bold leading-[15px] tracking-[0] text-[#ffffff] text-center flex flex-col justify-center" href="#"><span>INICIAR AGORA</span></a>
-            <div class="absolute left-[217px] top-[47px] w-[55px] h-[21px] rounded-[100px] bg-[#67d449]"></div>
-            <p class="absolute left-[217px] top-[47px] w-[55px] h-[21px] font-['Inria_Sans',_sans-serif] text-[length:12px] font-normal leading-[12px] text-[#ffffff] text-center flex flex-col justify-center"><span>Online</span></p>
-            <p class="absolute left-[83px] top-[70px] w-[188px] h-[37px] font-['Inria_Sans',_sans-serif] text-[length:14px] font-normal leading-[14px] text-[#000000] flex flex-col justify-center"><span>Motivo: Paciente com dores articulares e mal-estar</span></p>
+        <div class="w-[580px] h-[140px] rounded-[20px] bg-[#ffffff] shadow-[0_4px_4px_0_rgba(0,_0,_0,_0.25)] shrink-0 pl-[35px] pr-[40px] py-[15px] flex flex-col justify-center gap-1">
+            
+            <!-- Título -->
+            <p class="font-['Inria_Sans',_sans-serif] text-[20px] uppercase text-[#000000]">
+                Próximo Atendimento
+            </p>
+
+            <!-- Conteúdo Principal -->
+            <div class="flex justify-between items-center mt-1">
+                
+                <!-- Lado Esquerdo (Foto e Informações) -->
+                <div class="flex items-center gap-3">
+                    <img class="w-[55px] h-[55px] object-cover rounded-full bg-gray-200" src="{{ asset('images/dash/unnamed1.png') }}" alt="Ingrid Bonfim">
+                    
+                    <div class="flex flex-col justify-center">
+                        <div class="flex items-center gap-2">
+                            <span class="font-['Inria_Sans',_sans-serif] text-[22px] font-bold text-[#000000]">Ingrid Bonfim</span>
+                            <span class="bg-[#67d449] text-[#ffffff] font-['Inria_Sans',_sans-serif] text-[12px] px-2 py-0.5 rounded-[100px]">Online</span>
+                        </div>
+                        <p class="font-['Inria_Sans',_sans-serif] text-[14px] text-[#000000] leading-tight max-w-[200px]">
+                            Motivo: Paciente com dores articulares e mal-estar
+                        </p>
+                    </div>
+                </div>
+                <!-- Botão Iniciar -->
+                <div class="flex flex-col items-center gap-1">
+                    <span class="font-['Inria_Sans',_sans-serif] text-[18px] text-[#000000]">12:00 - 12:45</span>
+                    <a href="#" class="bg-[#0b9095] hover:opacity-80 transition text-[#ffffff] font-['Inria_Sans',_sans-serif] text-[15px] font-bold w-[145px] h-[30px] rounded-[100px] flex items-center justify-center">
+                        INICIAR AGORA
+                    </a>
+                </div>
+
+            </div>
+            
         </div>
 
     </div>
 
-    <!-- Coluna Direita (Lista de Horários e Legendas) -->
-    <div class="flex flex-col gap-[72px]">
+    <!-- Coluna da direita -->
+    <div class="flex flex-col gap-[30px]">
 
         <!-- Lista de Horários -->
-        <div class="w-[415px] h-[605px] rounded-[20px] bg-[#ffffff] shadow-[0_4px_4px_0_rgba(0,_0,_0,_0.25)] shrink-0 px-[23px] pt-[15px] pb-[20px] flex flex-col justify-between">
+        <div class="w-[415px] h-[650px] rounded-[20px] bg-[#ffffff] shadow-[0_4px_4px_0_rgba(0,_0,_0,_0.25)] shrink-0 px-[23px] pt-[15px] pb-[20px] flex flex-col justify-between">
             
             <!-- Cabeçalho da Lista -->
             <div class="shrink-0">
                 <p class="font-['Inter',_sans-serif] text-[22px] font-medium leading-[26px] text-[#000000] capitalize">
                     Horários {{ $dataSelecionada->translatedFormat('d \d\e F, l') }}
                 </p>
-                <p class="font-['Inter',_sans-serif] text-[14px] font-medium leading-[14px] text-[#000000] mt-1.5">
+                <p class="font-['Inter',_sans-serif] text-[15px] font-medium leading-[14px] text-[#000000] mt-1.5">
                     Mostrar: Todos, Livres, Ocupados
                 </p>
             </div>
 
             <!-- Cards de Horários Dinâmicos -->
-            <div class="flex flex-col gap-[10px] shrink-0">
+            <div class="flex flex-col gap-[13px] shrink-0">
                 @foreach ($horarios as $horario)
-                    <div class="w-full h-[52px] rounded-[8px] bg-[#ffffff] shadow-[inset_10px_0_0_0_#17ac57,_0_4px_4px_0_rgba(0,_0,_0,_0.25)] flex items-center justify-between pl-[18px] pr-[12px]">
+                    <div class="w-full h-[56px] rounded-[12px] bg-[#ffffff] shadow-[inset_10px_0_0_0_#17ac57,_0_4px_4px_0_rgba(0,_0,_0,_0.25)] flex items-center justify-between pl-[18px] pr-[12px]">
                         
                         <div class="flex items-center gap-4">
                             <span class="font-['Inter',_sans-serif] text-[18px] font-semibold leading-[18px] text-[#000000]">
@@ -108,7 +137,7 @@
                         </div>
 
                         <a href="{{ route('agenda.create', ['data' => $dataSelecionada->format('Y-m-d'), 'horario' => $horario]) }}" 
-                           class="w-[90px] h-9 rounded-[8px] bg-[#17ac57] hover:bg-[#139149] transition flex items-center justify-center font-['Inter',_sans-serif] text-[16px] font-semibold leading-[16px] text-[#ffffff]">
+                           class="w-[90px] h-9 rounded-[12px] bg-[#17ac57] hover:bg-[#139149] transition flex items-center justify-center font-['Inter',_sans-serif] text-[16px] font-semibold leading-[16px] text-[#ffffff]">
                             Agendar
                         </a>
 
@@ -117,19 +146,20 @@
             </div>
 
         </div>
+        
         <!-- Legendas -->
-        <div class="relative w-[415px] h-[114px] rounded-[20px] overflow-hidden bg-[#ffffff] shadow-[0_4px_4px_0_rgba(0,_0,_0,_0.25)] shrink-0">
-            <p class="absolute left-8 top-1 w-[110px] h-[25px] font-['Inter',_sans-serif] text-[length:18px] font-semibold leading-[27px] text-[#000000]">Legendas:</p>
-            <div class="absolute left-8 top-10 w-2.5 h-2.5 rounded-full bg-[#098e98]"></div>
-            <div class="absolute left-8 top-[89px] w-2.5 h-2.5 rounded-full bg-[#519ebc]"></div>
-            <div class="absolute left-8 top-16 w-2.5 h-[11px] rounded-full bg-[#ff4040]"></div>
-            <div class="absolute left-[231px] top-[69px] w-2.5 h-2.5 rounded-full bg-[#2fb568]"></div>
-            <div class="absolute left-[231px] top-[42px] w-2.5 h-2.5 rounded-full bg-[#ffff4d]"></div>
-            <p class="absolute left-[47px] top-[37px] font-['Inter',_sans-serif] text-[length:15px] font-normal leading-[15px] text-[#000000] whitespace-nowrap">Concluído</p>
-            <p class="absolute left-[47px] top-[86px] font-['Inter',_sans-serif] text-[length:15px] font-normal leading-[15px] text-[#000000] whitespace-nowrap">Confirmado</p>
-            <p class="absolute left-[47px] top-[60px] w-[118px] h-[17px] font-['Inter',_sans-serif] text-[length:15px] font-normal leading-[15px] text-[#000000] flex flex-col justify-end"><span>Cancelado</span></p>
-            <p class="absolute left-[246px] top-[66px] w-[97px] h-[17px] font-['Inter',_sans-serif] text-[length:15px] font-normal leading-[15px] text-[#000000]">Horário Livre </p>
-            <p class="absolute left-[246px] top-[39px] font-['Inter',_sans-serif] text-[length:15px] font-normal leading-[15px] text-[#000000] whitespace-nowrap">Pendente</p>
+        <div class="relative w-[415px] h-[140px] rounded-[20px] overflow-hidden bg-[#ffffff] shadow-[0_4px_4px_0_rgba(0,_0,_0,_0.25)] shrink-0">
+            <p class="absolute left-8 top-3 w-[110px] h-[25px] font-['Inter',_sans-serif] text-[length:18px] font-semibold leading-[27px] text-[#000000]">Legendas:</p>
+            <div class="absolute left-8 top-[48px] w-2.5 h-2.5 rounded-full bg-[#098e98]"></div>
+            <p class="absolute left-[47px] top-[46px] font-['Inter',_sans-serif] text-[length:15px] font-normal leading-[15px] text-[#000000] whitespace-nowrap">Concluído</p>
+            <div class="absolute left-8 top-[74px] w-2.5 h-[11px] rounded-full bg-[#ff4040]"></div>
+            <p class="absolute left-[47px] top-[70px] w-[118px] h-[17px] font-['Inter',_sans-serif] text-[length:15px] font-normal leading-[15px] text-[#000000] flex flex-col justify-end"><span>Cancelado</span></p>
+            <div class="absolute left-8 top-[99px] w-2.5 h-2.5 rounded-full bg-[#519ebc]"></div>            
+            <p class="absolute left-[47px] top-[97px] font-['Inter',_sans-serif] text-[length:15px] font-normal leading-[15px] text-[#000000] whitespace-nowrap">Confirmado</p>
+            <div class="absolute left-[231px] top-[48px] w-2.5 h-2.5 rounded-full bg-[#ffff4d]"></div>
+            <p class="absolute left-[246px] top-[46px] font-['Inter',_sans-serif] text-[length:15px] font-normal leading-[15px] text-[#000000] whitespace-nowrap">Pendente</p>
+            <div class="absolute left-[231px] top-[74px] w-2.5 h-2.5 rounded-full bg-[#2fb568]"></div>
+            <p class="absolute left-[246px] top-[72px] w-[97px] h-[17px] font-['Inter',_sans-serif] text-[length:15px] font-normal leading-[15px] text-[#000000]">Horário Livre </p>
         </div>
 
     </div>

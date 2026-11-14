@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Inria+Sans:wght@400;700&display=swap">
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Inria+Sans:wght@400;700&display=swap">
 
     <style>
         :root {
@@ -60,7 +60,7 @@
                 <a href="{{ route('pacientes.index') }}"
                     class="h-[50px] flex justify-center items-center rounded-[15px] text-[20px] transition-all duration-200 {{ request()->is('pacientes*') ? 'bg-[#098e98] text-white font-semibold' : 'bg-white text-black font-normal hover:bg-[#098e98] hover:text-white hover:font-semibold' }}">Pacientes</a>
 
-                <a href="#"
+                <a href="{{ route('profissionais.index') }}"
                     class="h-[50px] flex justify-center items-center rounded-[15px] text-[20px] transition-all duration-200 {{ request()->is('profissionais*') ? 'bg-[#098e98] text-white font-semibold' : 'bg-white text-black font-normal hover:bg-[#098e98] hover:text-white hover:font-semibold' }}">Profissionais</a>
 
                 <a href="#"

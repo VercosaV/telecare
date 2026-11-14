@@ -7,60 +7,49 @@ use Illuminate\Http\Request;
 
 class EspecialidadeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $especialidades = Especialidade::all();
-
         return view('especialidades.index', compact('especialidades'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(Request $request)
     {
-        return view('especialidades.create');
+        // Pega a URL de onde o usuário veio (se existir)
+        $redirectTo = $request->query('redirect_to', '/especialidades');
+        
+        return view('especialidades.create', compact('redirectTo'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        // dd($request->all());
         $dados = $request->validate([
             'nome' => 'required|string|max:255',
+            'redirect_to' => 'nullable|url' // Validamos a URL de retorno
         ]);
 
-        Especialidade::create($dados);
+        Especialidade::create(['nome' => $dados['nome']]);
+        
+        // Se veio de outra tela (como Profissionais), volta para lá. Se não, volta para a lista de especialidades.
+        if (!empty($dados['redirect_to'])) {
+            return redirect($dados['redirect_to'])->with('mensagem', 'Especialidade cadastrada! Agora você pode selecioná-la.');
+        }
+
+        return redirect()->route('especialidades.index')->with('mensagem', 'Especialidade cadastrada com sucesso!');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(int $id)
     {
         $especialidades = Especialidade::findOrFail($id);
-
         return view('especialidades.show', compact('especialidades'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(int $id)
     {
         $especialidades = Especialidade::findOrFail($id);
-
         return view('especialidades.edit', compact('especialidades'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, int $id)
     {
         $especialidades = Especialidade::findOrFail($id);
@@ -70,11 +59,10 @@ class EspecialidadeController extends Controller
         ]);
 
         $especialidades->update($dados);
+        
+        return redirect()->route('especialidades.index')->with('mensagem', 'Especialidade atualizada com sucesso!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(int $id)
     {
         $especialidades = Especialidade::findOrFail($id);
