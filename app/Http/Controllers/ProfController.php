@@ -11,14 +11,12 @@ class ProfController extends Controller
     public function index()
     {
         $profissionais = Profissionais::all();
-
         return view('profissionais.index', compact('profissionais'));
     }
 
     public function create()
     {
         $especialidades = Especialidade::all();
-
         return view('profissionais.create', compact('especialidades'));
     }
 
@@ -27,11 +25,11 @@ class ProfController extends Controller
         $dados = $request->validate([
             'tipo_profissional' => 'required|in:medico,secretaria',
             'nome' => 'required|string|max:255',
-            'cpf' => 'required|string|max:20|unique:profissionais,cpf',
-            'telefone' => 'required|string|max:20',
+            'cpf' => 'required|string|size:14|unique:profissionais,cpf',
+            'telefone' => 'required|string|max:15',
             'email' => 'required|email|max:255|unique:profissionais,email',
-            'crm' => 'required_unless:tipo_profissional,secretaria|nullable|string|max:20|unique:profissionais,crm',
-            'especialidade_id' => 'required_unless:tipo_profissional,secretaria|nullable|exists:especialidades,id',
+            'crm' => 'required_if:tipo_profissional,medico|nullable|string|max:20|unique:profissionais,crm',
+            'especialidade_id' => 'required_if:tipo_profissional,medico|nullable|exists:especialidades,id',
         ]);
 
         if ($dados['tipo_profissional'] === 'secretaria') {
@@ -48,27 +46,31 @@ class ProfController extends Controller
 
     public function show(int $id)
     {
-        // Busca o profissional pelo ID
         $profissionais = Profissionais::findOrFail($id);
-
         return view('profissionais.show', compact('profissionais'));
     }
 
     public function edit(int $id)
     {
         $profissionais = Profissionais::findOrFail($id);
-
         $especialidades = Especialidade::all();
-
         return view('profissionais.edit', compact('profissionais', 'especialidades'));
     }
 
     public function update(Request $request, int $id)
     {
         $profissionais = Profissionais::findOrFail($id);
-        $dados = $request->all();
+        
+        $dados = $request->validate([
+            'tipo_profissional' => 'required|in:medico,secretaria',
+            'nome' => 'required|string|max:255',
+            'cpf' => 'required|string|size:14|unique:profissionais,cpf,'.$id,
+            'telefone' => 'required|string|max:15',
+            'email' => 'required|email|max:255|unique:profissionais,email,'.$id,
+            'crm' => 'required_if:tipo_profissional,medico|nullable|string|max:20|unique:profissionais,crm,'.$id,
+            'especialidade_id' => 'required_if:tipo_profissional,medico|nullable|exists:especialidades,id',
+        ]);
 
-        // Repete a mesma regra do store para garantir que os dados fiquem nulos ao trocar de Médico para Secretária
         if ($dados['tipo_profissional'] === 'secretaria') {
             $dados['crm'] = null;
             $dados['especialidade_id'] = null;
@@ -84,7 +86,6 @@ class ProfController extends Controller
     public function destroy(int $id)
     {
         $profissionais = Profissionais::findOrFail($id);
-
         if ($profissionais->delete()) {
             return redirect()->route('profissionais.index')->with('mensagem', 'Profissional excluído com sucesso!');
         } else {

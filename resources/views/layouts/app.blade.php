@@ -60,7 +60,7 @@
                 <a href="{{ route('pacientes.index') }}"
                     class="h-[50px] flex justify-center items-center rounded-[15px] text-[20px] transition-all duration-200 {{ request()->is('pacientes*') ? 'bg-[#098e98] text-white font-semibold' : 'bg-white text-black font-normal hover:bg-[#098e98] hover:text-white hover:font-semibold' }}">Pacientes</a>
 
-                <a href="#"
+                <a href="{{ route('profissionais.index') }}"
                     class="h-[50px] flex justify-center items-center rounded-[15px] text-[20px] transition-all duration-200 {{ request()->is('profissionais*') ? 'bg-[#098e98] text-white font-semibold' : 'bg-white text-black font-normal hover:bg-[#098e98] hover:text-white hover:font-semibold' }}">Profissionais</a>
 
                 <a href="#"
